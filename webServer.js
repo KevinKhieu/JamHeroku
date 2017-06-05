@@ -46,7 +46,7 @@ var data = require('./data.json');
 
 routes.initSocketConnection(io);
 
-var portno = 3000;  // Port number to use
+var portno = process.env.PORT || 3000;  // Port number to use
 http.listen(portno, function() {
 	console.log('Listening at http://localhost:' + portno + ' exporting the directory ' + __dirname);
 });
