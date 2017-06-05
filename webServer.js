@@ -18,7 +18,7 @@ var bodyParser = require('body-parser');
 
 // Hosting Mongoose/mongodb on our local server
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/Jam');
+mongoose.connect('mongodb://heroku_c8lkx23s:fivbcoco2p4hpsupsonl45556v@ds111262.mlab.com:11262/heroku_c8lkx23s');
 var routes = require('./routes/index');
 
 // Open mongodb connection (make sure Mongo is running!)
