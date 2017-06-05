@@ -1,0 +1,8 @@
+{
+  "name": "Stanford CS194W: Jam",
+  "description": "CS194 Project by Kevin K, Lucas S, and Manny T",
+  "repository": "https://github.com/KevinKhieu/Jam",
+  "logo": "/img/logo.png",
+  "keywords": ["node", "express", "heroku"],
+  "image": "/img/logo.png"
+}

@@ -1,0 +1,234 @@
+[
+  {
+    "id": 0,
+    "songName": "A Sky Full Of Stars",
+    "artist": "Coldplay",
+    "upvotes": [],
+    "link": "A Sky Full Of Stars.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 1,
+    "songName": "Bang Bang Bang",
+    "artist": "Big Bang",
+    "upvotes": [],
+    "link": "Bang Bang Bang.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 2,
+    "songName": "Bad Boy",
+    "artist": "Big Bang",
+    "upvotes": [],
+    "link": "Bad Boy.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 3,
+    "songName": "Alive",
+    "artist": "Adelitas Way",
+    "upvotes": [],
+    "link": "Alive.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 4,
+    "songName": "Be Somebody",
+    "artist": "Boyce Avenue",
+    "upvotes": [],
+    "link": "Be Somebody.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 5,
+    "songName": "Beautiful Soul",
+    "artist": "Boyce Avenue",
+    "upvotes": [],
+    "link": "Beautiful Soul.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 6,
+    "songName": "Break Free",
+    "artist": "Ariana Grande",
+    "upvotes": [],
+    "link": "Break Free.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 7,
+    "songName": "Bright",
+    "artist": "Echosmith",
+    "upvotes": [],
+    "link": "Bright.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 8,
+    "songName": "Fallin' For You",
+    "artist": "Colbie Caillat",
+    "upvotes": [],
+    "link": "Fallin' For You.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 9,
+    "songName": "Fast Car",
+    "artist": "Boyce Avenue",
+    "upvotes": [],
+    "link": "Fast Car.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 10,
+    "songName": "Firework",
+    "artist": "Boyce Avenue",
+    "upvotes": [],
+    "link": "Firework.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 11,
+    "songName": "Haru Haru",
+    "artist": "Big Bang",
+    "upvotes": [],
+    "link": "Haru Haru.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 12,
+    "songName": "It's Not My Time",
+    "artist": "3 Doors Down",
+    "upvotes": [],
+    "link": "It's Not My Time.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 13,
+    "songName": "Jar of Hearts",
+    "artist": "Boyce Avenue",
+    "upvotes": [],
+    "link": "Jar of Hearts.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 14,
+    "songName": "Just The Way You Are",
+    "artist": "Boyce Avenue",
+    "upvotes": [],
+    "link": "Just The Way You Are.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 15,
+    "songName": "Lego House",
+    "artist": "Ed Sheeran",
+    "upvotes": [],
+    "link": "Lego House.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 16,
+    "songName": "Little Do You Know",
+    "artist": "Alex & Sierra",
+    "upvotes": [],
+    "link": "Little Do You Know.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 17,
+    "songName": "Perfect",
+    "artist": "Boyce Avenue",
+    "upvotes": [],
+    "link": "Perfect.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 18,
+    "songName": "Photograph",
+    "artist": "Ed Sheeran",
+    "upvotes": [],
+    "link": "Photograph.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 19,
+    "songName": "Rather Be",
+    "artist": "Clean Bandit",
+    "upvotes": [],
+    "link": "Rather Be.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 20,
+    "songName": "See You Again",
+    "artist": "Boyce Avenue",
+    "upvotes": [],
+    "link": "See You Again.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 21,
+    "songName": "She Will Be Loved",
+    "artist": "Boyce Avenue",
+    "upvotes": [],
+    "link": "She Will Be Loved.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 22,
+    "songName": "Shower",
+    "artist": "Becky G",
+    "upvotes": [],
+    "link": "Shower.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 23,
+    "songName": "Teenage Dream",
+    "artist": "Boyce Avenue",
+    "upvotes": [],
+    "link": "Teenage Dream.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 24,
+    "songName": "The Scientist",
+    "artist": "Coldplay",
+    "upvotes": [],
+    "link": "The Scientist.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 25,
+    "songName": "Thinking Out Loud",
+    "artist": "Ed Sheeran",
+    "upvotes": [],
+    "link": "Thinking Out Loud.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 26,
+    "songName": "What Makes You Beautiful",
+    "artist": "Boyce Avenue",
+    "upvotes": [],
+    "link": "What Makes You Beautiful.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 27,
+    "songName": "Where We Land",
+    "artist": "Ed Sheeran",
+    "upvotes": [],
+    "link": "Where We Land.mp3",
+    "userAdded": "Mr. Sanchez"
+  },
+  {
+    "id": 28,
+    "songName": "Wherever You Will Go",
+    "artist": "Boyce Avenue",
+    "upvotes": [],
+    "link": "Wherever You Will Go.mp3",
+    "userAdded": "Mr. Sanchez"
+  }
+]

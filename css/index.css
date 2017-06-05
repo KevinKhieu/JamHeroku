@@ -1,0 +1,324 @@
+body {
+	 background-color: #FFFFFF;
+}
+
+.songStuff {
+	display: inline-block;
+	float: right;
+	width:100%;
+}
+
+.playlistSongInfoArea {
+	float: right;
+	width: 90%;
+}
+
+.spacer {
+	height: 10px;
+}
+
+.playlistSongLikeArea {
+	float: left;
+	width: 9%;
+	height: auto;
+	-webkit-transform: translateY(10%);
+	-ms-transform: translateY(10%);
+	transform: translateY(10%);
+	position: relative;
+	margin: auto;
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.logo {
+	width: 85px;
+	height: 100px;
+	float:left;
+	padding-left: 15px;
+	padding-top: 15px;
+}
+
+.hi {
+	padding-top:0px;
+	margin-top:1px;
+}
+
+.title {
+	font-family: Eurostile;
+	font-size: 38px;
+	text-align: center;
+	color: #5d5d5d;
+	margin: auto;
+	padding-top: 60px;
+}
+
+.lastPlayed {
+	font-family: Eurostile;
+	font-size: 23px;
+	width: 100%;
+	text-align: center;
+	font-weight: bold;
+	text-align: right;
+	color: #777777;
+	padding-top: 10px;
+	margin-bottom: 1px;
+	padding-right: 35px;
+	float: right;
+}
+
+.lastPlayedSection {
+	display: table;
+	float:right;
+	height: 70px;
+	width: 100%;
+	word-wrap: break-word;
+	border: 1px;
+	padding-top: 1px;
+}
+
+input[type=text] {
+		width: 96%;
+		float: right;
+		font-family: Eurostile;
+		font-size: 16px;
+		color: #777777;
+		-webkit-transition: width 0.4s ease-in-out;
+		transition: width 0.4s ease-in-out;
+
+		padding: 5px;
+	border: none;
+	border-bottom: solid 2px #c9c9c9;
+	transition: border 0.3s;
+}
+
+/* When the input field gets focus, change its width to 100% */
+input[type=text]:focus {
+		width: 96%;
+		color: #5d5d5d;
+		font-family: Eurostile;
+		border-bottom: solid 2px #969696;
+}
+
+.likeButtonSection {
+	position: relative;
+	width: 9%;
+	height: auto;
+	-webkit-transform: translateY(10%);
+	-ms-transform: translateY(10%);
+	transform: translateY(10%);
+	float: right;
+	margin: auto;
+	display: inline-block;
+
+		vertical-align: middle;
+}
+
+.likeButton {
+	width: 100%;
+	height: auto;
+	float: left;
+	vertical-align: middle;
+}
+
+.songInfo {
+	width: 67%;
+	float: right;
+	word-wrap: break-word;
+	display: inline-block;
+	vertical-align: middle;
+	padding-right:30px;
+}
+
+.songInfo2 {
+	width: 90%;
+	float: right;
+	word-wrap: break-word;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.lastPlayedLine {
+	width: 95%;
+	padding-right: 30px;
+	margin-bottom: 0px;
+	padding-top: 0px;
+	float: right;
+	opacity: .7;
+}
+
+.lastPlayedTitle {
+	font-family: Eurostile;
+	font-size: 20px;
+	text-align: right;
+	width: 230px;
+	color: #000000;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+		overflow: hidden;
+	padding-top: 0px;
+	margin-top: 1px;
+	padding-right: 35px;
+	margin-bottom: 1px;
+	float: right;
+}
+.lastPlayedArtist {
+	font-family: Eurostile;
+	font-size: 18.5px;
+	text-align: right;
+	width: 230px;
+	color: #777777;
+	padding-top: 0px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+		overflow: hidden;
+	margin-top: 3px;
+	padding-right: 35px;
+	float: right;
+	margin-bottom: 0px;
+}
+
+.left {
+	width: 25%;
+	float: left;
+}
+
+.middle {
+	width: 50%;
+	float: left;
+}
+
+.right {
+	width: 25%;
+	float: left;
+}
+
+.image-cropper {
+	width: 450px;
+	height: 450px;
+	margin: auto;
+	position: relative;
+	overflow: hidden;
+	margin-top: 40px;
+	border-radius: 50%;
+}
+
+.imageHolder {
+	display: inline;
+	margin: 0 auto;
+	height: 100%;
+	width: auto;
+	z-index: 3;
+	position: absolute;
+}
+
+.songImg {
+	display: inline;
+	margin: 0 auto;
+	height: 100%;
+	width: auto;
+	z-index: 1;
+	position: absolute;
+}
+
+.border {
+		display: inline;
+		margin: 0 auto;
+		height: 100%;
+		width: auto;
+	z-index: 3;
+	position: absolute;
+}
+
+.songname {
+	font-family: Eurostile;
+	font-size: 50px;
+	text-align: center;
+	color: #000000;
+	margin: auto;
+	padding-top: 10px;
+	padding-bottom:0px;
+}
+
+.songartist {
+	font-family: Eurostile;
+	font-size: 38px;
+	text-align: center;
+	color: #5d5d5d;
+	margin: auto;
+	margin-top:0px;
+	padding-top: 0px;
+}
+
+.controls {
+	text-align: center;
+	margin: auto;
+	margin-top:25px;
+}
+
+.searchArea {
+	margin-top: 30px;
+	float:right;
+	padding-right: 30px;
+	width: 100%;
+}
+
+html {
+	background: #ffffff;
+}
+
+.fadedLine {
+/*	opacity: .;*/
+	margin-bottom: 0px;
+	height:1px;
+	width:100%;
+
+}
+
+.playlistSong {
+	font-family: Eurostile;
+	font-size: 20px;
+	text-align: right;
+	width: 100%;
+	color: #000000;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+		overflow: hidden;
+	padding-top: 0px;
+	margin-top: 3px;
+	padding-right: 0px;
+	margin-bottom:0px;
+	padding-bottom:0px;
+	float: right;
+	cursor: pointer;
+}
+
+.playlistArtist {
+	font-family: Eurostile;
+	font-size: 18.5px;
+	text-align: right;
+	width: 100%;
+	color: #777777;
+	padding-top: 0px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+		overflow: hidden;
+	margin-top: 3px;
+	padding-right: 0px;
+	float: right;
+	margin-bottom: 2px;
+}
+
+.songList {
+	float:right;
+	height:600px;
+	overflow-y: scroll;
+}
+/*.top {
+	width: 100%;
+	margin: auto;
+	text-align: center;
+	vertical-align: middle;
+	position: relative;
+	display: inline-block;
+}*/

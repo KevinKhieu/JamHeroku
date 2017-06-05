@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html ng-app="jamApp">
+	<head>
+		<title>Jam!</title>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+		<script src="./node_modules/angular/angular.js" type="text/javascript" ></script>
+		<link href="./bower_components/angular-material/angular-material.css" rel="stylesheet" />
+		<script src="./bower_components/angular-animate/angular-animate.js" type="text/javascript" ></script>
+		<script src="./bower_components/angular-aria/angular-aria.js" type="text/javascript" ></script>
+		<script src="./bower_components/angular-material/angular-material.js" type="text/javascript" ></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+
+		<script src="bower_components/angular-route/angular-route.js"></script>
+		<script src="bower_components/angular-resource/angular-resource.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="css/favorite.css">
+		<link rel="stylesheet" type="text/css" href="css/index.css">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+		<script src="./js/controllers.js"></script>
+		<script src="./js/services.js"></script>
+		<script src="./js/app.js"></script>
+	</head>
+
+	<body>
+		<ui-view></ui-view>
+		<div class="w3-row-padding w3-padding-32">
+		<script type="text/ng-template" id = "/home.html">
+			<div class = "left w3-col w3-container w3-hide-small w3-hide-medium l3">
+				<img src="img/logo.png" class="logo">
+			</div>
+			<div class = "middle w3-col w3-container l6">
+				<p class = "title">NOW PLAYING</p>
+				<div class="image-cropper">
+					<div class="imageHolder">
+						<img src="img/noImg.png" class = "songImg"/>
+						<img src="img/circle.png" class = "border"/>
+					</div>
+
+				</div>
+				<div class="controls">
+					<button ng-click="main.reset()">Reset DB</button>
+					<button ng-click="main.beginPlayback()">Begin Playback</button>
+					<button ng-click="main.togglePlay()">{{main.nowPlaying.isPlaying ? "Pause" : "Play"}}</button>
+					<button ng-click="main.test()">Test</button>
+				</div>
+<!-- 				<p class = "songname">{{main.songName}}</p>
+				<p class = "songartist">{{main.artist}}</p>
+				
+======= -->
+				<p class = "songname">{{main.nowPlaying.songName.toUpperCase()}}</p>
+				<p class = "songartist">{{main.nowPlaying.artist.toUpperCase()}}</p>
+			</div>
+
+			<div class="right w3-col w3-container l3">
+
+				<p class = "lastPlayed">LAST PLAYED</p>
+				<div class = "lastPlayedLine">
+					<hr>
+				</div>
+				<div class = "lastPlayedSection">
+					<div class = "songInfo">
+<!-- <<<<<<< HEAD
+						<p class = "playlistSong">{{main.lastPlayedTitle}}</p>
+						<p class = "playlistArtist">{{main.lastPlayedArtist}}</p>
+======= -->
+						<p class = "playlistSong">{{main.lastPlayed.songName}}</p>
+						<p class = "playlistArtist">{{main.lastPlayed.artist}}</p>
+					</div>
+					<!-- <div class = "likeButtonSection">
+						<div class='like-wrapper'>
+							<a class='like-button'>
+								<span class='like-icon'>
+									<div class='heart-animation-1'></div>
+									<div class='heart-animation-2'></div>
+
+								</span>
+							</a>
+						</div>
+					</div> -->
+
+				</div>
+
+				<div class = "searchArea">
+					<input type="text" name="search" placeholder="Search or Add Songs..."
+								ng-model="searchString" class="style-4" id="search_bar">
+
+					<!-- PLAYLIST - NO SEARCH -->
+					<div ng-if = "!main.searchResults" class = "songList">
+						<div class = "songInfo2"
+										ng-repeat = "song in main.playlist">
+							<div id = "song-{{$index}}" class = "listSongWrapper">
+								<div class = "songStuff">
+									<div class = 'playlistSongInfoArea'>
+										<div class="spacer">
+										</div>
+										<p class = "playlistSong">{{song.songName}}</p>
+										<p class = "playlistArtist">{{song.artist}}</p>
+										<div class="spacer">
+										</div>
+									</div>
+									<div class = 'playlistSongLikeArea'>
+										<div class='like-wrapper'>
+											<a class='like-button'
+												ng-class = "{liked: song.iUpvoted}"
+												ng-click = "main.toggleClick($event, song.id)">
+												<span class='like-icon'>
+													<div class='heart-animation-1'></div>
+													<div class='heart-animation-2'></div>
+												</span>
+											</a>
+										</div>
+										<p class="hi">{{song.upvotes.length}}</p>
+									</div>
+									
+								</div>
+								<hr class = "fadedLine">
+							</div>
+						</div>
+					</div>
+
+
+					<!-- PLAYLIST - Results for SEARCH -->
+					<div ng-if = "main.searchResults" class = "songList">
+						<div class = "songInfo2"
+										ng-repeat = "song in main.searchList">
+							<div id = "song-{{$index}}" class = "listSongWrapper">
+								<div class = "songStuff">
+									<div class = 'playlistSongInfoArea'>
+										<div class="spacer">
+										</div>
+										<p class = "playlistSong">{{song.songName}}</p>
+										<p class = "playlistArtist">{{song.artist}}</p>
+										<div class="spacer">
+										</div>
+									</div>
+									<div class = 'playlistSongLikeArea add'>
+										<div class='add-wrapper add'>
+											<a class='add-button add'
+												ng-click = "main.addClick($event, song.id, $index)">
+												<img src="img/plus.png" class="add-icon add">
+											</a>
+										</div>
+										<p class="hi">{{song.upvotes.length}}</p>
+									</div>
+									
+								</div>
+								<hr class = "fadedLine">
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			</div>
+		</script>
+		<audio id = "audioElement" autoplay="false">
+			Oh No! Your browser doesn't support audio
+		</audio>
+
+	</body>
+
+</html>
