@@ -376,7 +376,7 @@ html {
     /* For Phones: */
     .lastPlayedTitle {
 		font-family: Eurostile;
-		font-size: 40px;
+		font-size: 1vw;
 		text-align: right;
 		width: 230px;
 		color: #000000;
@@ -391,7 +391,7 @@ html {
 	}
 	.lastPlayedArtist {
 		font-family: Eurostile;
-		font-size: 30px;
+		font-size: 1vw;
 		text-align: right;
 		width: 230px;
 		color: #777777;
