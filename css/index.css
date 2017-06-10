@@ -367,8 +367,38 @@ html {
 	width: 50%;
 }
 
-@media only screen and (max-width: 768px) {
-    /* For tablets: */
+@media only screen and (max-width: 1000px) {
+    /* For Phones: */
+    .lastPlayedTitle {
+		font-family: Eurostile;
+		font-size: 1vw;
+		text-align: right;
+		width: 230px;
+		color: #000000;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+			overflow: hidden;
+		padding-top: 0px;
+		margin-top: 1px;
+		padding-right: 35px;
+		margin-bottom: 1px;
+		float: right;
+	}
+	.lastPlayedArtist {
+		font-family: Eurostile;
+		font-size: 1vw;
+		text-align: right;
+		width: 230px;
+		color: #777777;
+		padding-top: 0px;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+			overflow: hidden;
+		margin-top: 3px;
+		padding-right: 35px;
+		float: right;
+		margin-bottom: 0px;
+	}
 
 }
 
