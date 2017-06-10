@@ -128,7 +128,7 @@ input[type=text]:focus {
 }
 
 .songInfo {
-	width: 67%;
+	width: 97%;
 	float: right;
 	word-wrap: break-word;
 	display: inline-block;
