@@ -60,7 +60,7 @@ angular.module('songServices', [])
 		o.songs[i].upvotes = upvotes;
 		o.songs[i].iUpvoted = didIUpvote(upvotes, socket.myIP);
 		console.log(id + ' has ' + upvotes.length + ' upvotes.');
-
+		console.log(o);
 		o._sort();
 	};
 

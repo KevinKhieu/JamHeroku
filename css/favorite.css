@@ -29,7 +29,9 @@ a {
 }
 
 .add-icon {
-	height: 50%;
+	height: 40%;
+	display: block;
+    margin: auto;
 }
 
 .add-button {
@@ -75,8 +77,8 @@ a {
 	font-size: 1rem;
 	-webkit-transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 	transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-	-webkit-filter: grayscale(100%);
-					filter: grayscale(100%);
+	-webkit-filter: opacity(30%);
+					filter: opacity(30%);
 	-webkit-user-select: none;
 		 -moz-user-select: none;
 			-ms-user-select: none;
@@ -99,7 +101,7 @@ a {
 	position: relative;
 	font-size: 1.5rem;
 	vertical-align: middle;
-	background: url("http://share.wojtek.im/ajKY+") no-repeat center;
+	background: url("../img/heart-colored.svg") no-repeat center;
 	background-size: 100%;
 	-webkit-animation: heartUnlike 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
 					animation: heartUnlike 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
@@ -110,7 +112,7 @@ a {
 					animation: heartPulse 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
 }
 .liked .like-icon [class^="heart-animation-"] {
-	background: url("http://share.wojtek.im/ajKY+") no-repeat center;
+	background: url("../img/heart-uncolored.svg") no-repeat center;
 	background-size: 100%;
 	display: block;
 	position: absolute;
@@ -170,7 +172,7 @@ a {
 					animation: heartFloatSub-4 1s 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
 	opacity: .4;
 }
-
+/*
 @-webkit-keyframes heartPulse {
 	0% {
 		-webkit-transform: scale(1);
@@ -355,4 +357,4 @@ a {
 		-webkit-transform: translate(2px, -18px) rotate(-25deg);
 						transform: translate(2px, -18px) rotate(-25deg);
 	}
-}
+}*/

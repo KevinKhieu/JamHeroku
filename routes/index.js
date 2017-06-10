@@ -12,6 +12,8 @@ var PlayMusic = require('../google-music/play');
 var pm = new PlayMusic();
 googlePlayAPI.initialize(pm, function() {
 	console.log('successfully initialized google play api');
+}, function(err) {
+	console.log("HEYYY");
 });
 
 // Generic error handler
@@ -164,13 +166,16 @@ io.sockets.on('connection', function(socket) {
 			if(err){
 				handleError(socket, err.message, "Failed to add song to list.");
 			} else {
-				console.log("Broadcasting push:add-song...");
-				io.emit('push:add-song', song);
-				googlePlayAPI.getStreamURL(song.id, function(url) {
+
+				// Get streaming url
+				googlePlayAPI.getStreamURL(pm, song, function(url) {
 					song.link = url;
 					song.save(function(err, song) {
 						if(err) {
 							handleError(socket, err.message, "Failed to save url to song entry.");
+						} else {
+							console.log("Broadcasting push:add-song...");
+							io.emit('push:add-song', song);
 						}
 					});
 				});
@@ -192,7 +197,7 @@ io.sockets.on('connection', function(socket) {
 
 	socket.on('send:now-playing', function(data) {
 		console.log('now playing: ' + data.np.id);
-
+		
 		Entry.findOne({ id:data.np.id }).remove(function(err) {
 			if(err) {
 				handleError(socket, err.message, "DB: Failed to remove now-playing song from queue.");
@@ -231,10 +236,19 @@ io.sockets.on('connection', function(socket) {
 		console.log('getting search for ' + data.query);
 		googlePlayAPI.search(pm, data.query, function(results) {
 			console.dir(results);
+			var unique_songs = [];
+			for (var i = 0; i < results.length - 1; i+=2) {
+				if (results[i].songName === results[i + 1].songName && results[i].artist === results[i + 1].artist) {
+					unique_songs.push(results[i+1]);
+				} else {
+					unique_songs.push(results[i]);
+					unique_songs.push(results[i+1]);
+				}
+			}
+			results = unique_songs;
 			socket.emit('send:search', {results: results});
 		});
 	});
-
 
 	// RESET
 	socket.on('send:reset', function() {
@@ -247,15 +261,16 @@ io.sockets.on('connection', function(socket) {
 			}
 			console.log('  successfully removed all songs from database');
 
-			// re-add hardcoded data
-			Entry.create(hardcodedMusicData, function(err) {
-				if(err) {
-					handleError(socket, err.message, "Failed to add hardcoded data to database.");
-				} else {
-					console.log('  successfully re-added hardcoded music data');
-					pushQueue(io);
-				}
-			});
+			pushQueue(io);
+			// // re-add hardcoded data
+			// Entry.create(hardcodedMusicData, function(err) {
+			// 	if(err) {
+			// 		handleError(socket, err.message, "Failed to add hardcoded data to database.");
+			// 	} else {
+			// 		console.log('  successfully re-added hardcoded music data');
+			// 		pushQueue(io);
+			// 	}
+			// });
 		});
 
 		// clear now playing

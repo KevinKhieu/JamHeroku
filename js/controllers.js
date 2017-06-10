@@ -23,6 +23,12 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 		$scope.main.searchResults = false;
 		$scope.main.searchList = [];
 
+		$scope.main.buttonimg = 'img/pause.png';
+		if($scope.main.nowPlaying.isPlaying === false) {
+			$scope.main.buttonimg = 'img/pause.png';
+		} else {  // Pause
+			$scope.main.buttonimg = 'img/play.png';
+		}
 
 		/* EVENT HANDLERS */
 
@@ -56,12 +62,11 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 			 || $event.target.parentElement.parentElement.classList.contains('add')
 			) {
 				// we will 'unlike' it
-				console.log(index);
-				console.log(this);
 				$scope.addSong($scope.main.searchList[index]);
 				$event.target.classList.remove('add')
 			 	$event.target.parentElement.classList.remove('add')
 			 	$event.target.parentElement.parentElement.classList.remove('add')
+			 	$event.target.src = "img/check.png"
 			} else {
 				// we will 'like' it
 				console.log("Already added");
@@ -85,7 +90,7 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 		}
 
 		var typingTimer;                //timer identifier
-		var doneTypingInterval = 900;  //time in ms (5 seconds)
+		var doneTypingInterval = 250;  //time in ms (5 seconds)
 		// On press enter in the search bar, call search()
 		$("#search_bar").on('keyup', function (e) {
 			// if (e.keyCode == 13) {
@@ -94,12 +99,12 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 			clearTimeout(typingTimer);
 			if (this.value) {
 				typingTimer = setTimeout(doneTyping, doneTypingInterval);
-				
+
 				function doneTyping() {
 					$scope.$apply(search);
 					$scope.main.searchResults = true;
 				}
-				
+
 			} else {
 				console.log("EMPTY");
 				$scope.$apply(function() {
@@ -108,22 +113,52 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 			}
 		});
 
+		// $("#search_bar").on('blur', function (e) {
+		//     console.log(e);
+		//     this.value = '';
+		//     $scope.$apply(function() {
+		// 		$scope.main.searchResults = false;
+		// 	})
+		// });    
+
 		// Convert Google Play Music API search results to our song format
 		function resultsToSongs(results) {
 			// TODO
 			return results;
 		}
 
+		document.addEventListener('click', function(e) {
+			var el = $(e.target);
+			if (el.parents('div#targetArea').length) {
+
+			} else {
+				console.log("HIHIH");
+				$("#search_bar").value = '';
+				$scope.$apply(function() {
+					$scope.main.searchResults = false;
+				})
+			}
+		})
+
 		function determineSongsAlreadyAdded(results) {
+			console.log(results)
+			var newResults = [];
 			results.forEach(function(result) {
-				result.isAlreadyAdded = songs.contains(result.id);
+				// result.isAlreadyAdded = songs.contains(result.id);
+				if (!songs.contains(result.id)) {
+					newResults.push(result);
+				}
 			});
+			return newResults;
+			console.log(results)
 		}
 
 		// TODO: front end calls this from search view
 		$scope.addSong = function(song) {
 			console.log('adding song: ' + song.id);
 			socket.emit('send:add-song', song);
+			// $("#search_bar").value = '';
+			// $scope.main.searchResults = false;
 		};
 
 		// PLAYBACK SECTION //
@@ -131,8 +166,9 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 		function _playNow(link) {
 			// actually start playing the song
 			var aud = document.getElementById("audioElement");
-			aud.src =  "music/" + link;
-			var timestamp = undefined;
+			// aud.src =  "music/" + link;
+			aud.src = link;
+			var timestamp = undefined;  // TODO: Get timestamp of now
 			aud.play();
 		};
 
@@ -164,22 +200,58 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 
 		function beginNextSong() {
 			var song = songs.popNext();
-			console.log("Now Playing: " + song.songName + " by " + song.artist);
+			console.log(song);
+			
+			if (song == null) {
+				console.log("UH OH");
+				console.log("No more songs in queue.");
+				$scope.main.nowPlaying.isPlaying = false;
+				$scope.main.lastPlayed.songName = $scope.main.nowPlaying.songName;
+				$scope.main.lastPlayed.artist = $scope.main.nowPlaying.artist;
+				$scope.main.nowPlaying.songName = "No Current Song";
+				$scope.main.nowPlaying.artist = "";
 
-			_setAsNowPlaying(_createNowPlaying(song), $scope.main.nowPlaying);
-			$scope.main.nowPlaying.timeResumed = _playNow(song.link);
-			$scope.main.nowPlaying.isPlaying = true;
+			} else {
+				console.log("Now Playing: " + song.songName + " by " + song.artist);
 
-			socket.emit('send:now-playing', {
-				np: $scope.main.nowPlaying,
-				lp: $scope.main.lastPlayed
-			});
+				_setAsNowPlaying(_createNowPlaying(song), $scope.main.nowPlaying);
+				$scope.main.nowPlaying.timeResumed = _playNow(song.link);
+				$scope.main.nowPlaying.isPlaying = true;
+
+				socket.emit('send:now-playing', {
+					np: $scope.main.nowPlaying,
+					lp: $scope.main.lastPlayed
+				});
+			}
+			
 		}
 
-		$scope.main.beginPlayback = function() {
+		// $scope.main.beginPlayback = function() {
+		// 	var aud = document.getElementById("audioElement");
+		// 	aud.onended = function() { $scope.$apply(beginNextSong) };
+		// 	beginNextSong();
+		// };
+
+		$scope.main.playSong = function() {
+			var aud = document.getElementById("audioElement");
+			aud.play();
+			$scope.main.nowPlaying.isPlaying = true;
+			console.log('audio playing');
+			socket.emit('send:play');
+		};
+
+		$scope.main.pauseSong = function() {
+			var aud = document.getElementById("audioElement");
+			aud.pause();
+			$scope.main.nowPlaying.isPlaying = false;
+			console.log('audio paused');
+			socket.emit('send:pause');
+		};
+
+		$scope.main.skipSong = function() {
 			var aud = document.getElementById("audioElement");
 			aud.onended = function() { $scope.$apply(beginNextSong) };
-
+			$scope.main.buttonimg = 'img/pause.png';
 			beginNextSong();
 		};
 
@@ -188,12 +260,14 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 
 			if($scope.main.nowPlaying.isPlaying === false) {
 				aud.play();
+				$scope.main.buttonimg = 'img/pause.png';
 				$scope.main.nowPlaying.isPlaying = true;
 				console.log('audio playing');
 				socket.emit('send:play');
 
 			} else {  // Pause
 				aud.pause();
+				$scope.main.buttonimg = 'img/play.png';
 				$scope.main.nowPlaying.isPlaying = false;
 				console.log('audio paused');
 				socket.emit('send:pause');
@@ -222,10 +296,10 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 		// Receive Google API events back from server
 		socket.on('send:search', function(data) {
 			var songResults = resultsToSongs(data.results);
-			determineSongsAlreadyAdded(songResults);
+			var newResults = determineSongsAlreadyAdded(songResults);
 			console.dir(songResults);
-			$scope.main.searchList = songResults;
-			// TODO: Kevin will make search results appear on the screen like magic
+			//$scope.main.searchList = songResults;
+			$scope.main.searchList = newResults;
 		});
 
 		// RESET DB
