@@ -453,4 +453,21 @@ html {
 		border-bottom: solid 2px #c9c9c9;
 		transition: border 0.3s;
 	}
+
+	.image-cropper {
+		width: 650px;
+		height: 650px;
+	}
+
+	.songname {
+		font-size: 70px;
+	}
+
+	.songartist {
+		font-size: 50px;
+	}
+
+	.title {
+		font-size: 50px;
+	}
 }
