@@ -56,7 +56,7 @@ body {
 	text-align: center;
 	color: #5d5d5d;
 	margin: auto;
-	padding-top: 60px;
+	padding-top: 40px;
 }
 
 .lastPlayed {
@@ -324,8 +324,8 @@ html {
 }
 
 #playButton {
-	height: 100px;
-	width: 100px;
+	height: 85px;
+	width: 85px;
 	border: none;
 	background-color: #FFFFFF;
 	margin-right: 0px;
@@ -339,8 +339,8 @@ html {
 }
 
 #pauseButton {
-	height: 100px;
-	width: 100px;
+	height: 85px;
+	width: 85px;
 	border: none;
 	background-color: #FFFFFF;
 	margin-right: 0px;
