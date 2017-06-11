@@ -289,5 +289,10 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 			console.log("sending reset");
 			socket.emit('send:reset');
 		};
+
+		$("#audioElement").bind('ended', function(){
+		    // done playing
+		    beginNextSong();
+		});
 }
 ]);
