@@ -411,4 +411,12 @@ html {
 	.playlistSongLikeArea {
 		width: 20%;
 	}
+
+	.like-icon {
+		height: 80%;
+	}
+
+	.hi {
+		height: 20%;
+	}
 }
