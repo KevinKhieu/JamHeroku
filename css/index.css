@@ -369,39 +369,38 @@ html {
 
 @media only screen and (max-device-width: 800px) {
     /* For Phones: */
-    .lastPlayedTitle {
+    .playlistSong {
 		font-family: Eurostile;
-		font-size: 1vw;
+		font-size: 35px;
 		text-align: right;
-		width: 230px;
+		width: 90%;
 		color: #000000;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 			overflow: hidden;
 		padding-top: 0px;
-		margin-top: 1px;
-		padding-right: 35px;
-		margin-bottom: 1px;
+		margin-top: 3px;
+		padding-right: 0px;
+		margin-bottom:0px;
+		padding-bottom:0px;
 		float: right;
+		cursor: pointer;
 	}
-	.lastPlayedArtist {
+
+
+	.playlistArtist {
 		font-family: Eurostile;
-		font-size: 1vw;
+		font-size: 26px;
 		text-align: right;
-		width: 230px;
+		width: 98%;
 		color: #777777;
 		padding-top: 0px;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 			overflow: hidden;
 		margin-top: 3px;
-		padding-right: 35px;
+		padding-right: 0px;
 		float: right;
-		margin-bottom: 0px;
+		margin-bottom: 2px;
 	}
-
-	body {
-        background-color: lightblue;
-    }
-
 }
