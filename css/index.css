@@ -375,7 +375,7 @@ html {
     /* For Phones: */
     .playlistSong {
 		font-family: Eurostile;
-		font-size: 5vw;
+		font-size: 4vw;
 		text-align: right;
 		width: 90%;
 		color: #000000;
@@ -394,7 +394,7 @@ html {
 
 	.playlistArtist {
 		font-family: Eurostile;
-		font-size: 4.5vw;
+		font-size: 3.5vw;
 		text-align: right;
 		width: 98%;
 		color: #777777;
@@ -424,8 +424,8 @@ html {
 	}
 
 	.like-wrapper {
-		height: 80%;
-		width: auto;
+		height: 80px;
+		width: 80px;
 	}
 
 	.like-button {
@@ -437,5 +437,20 @@ html {
 		height: 20%;
 		width: auto;
 		font-size: 4vw;
+	}
+
+	input[type=text] {
+		width: 96%;
+		float: right;
+		font-family: Eurostile;
+		font-size: 35px;
+		color: #777777;
+		-webkit-transition: width 0.4s ease-in-out;
+		transition: width 0.4s ease-in-out;
+
+		padding: 5px;
+		border: none;
+		border-bottom: solid 2px #c9c9c9;
+		transition: border 0.3s;
 	}
 }
