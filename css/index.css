@@ -52,7 +52,7 @@ body {
 
 .title {
 	font-family: Eurostile;
-	font-size: 38px;
+	font-size: 31px;
 	text-align: center;
 	color: #5d5d5d;
 	margin: auto;
@@ -238,7 +238,7 @@ input[type=text]:focus {
 
 .songname {
 	font-family: Eurostile;
-	font-size: 50px;
+	font-size: 40px;
 	text-align: center;
 	color: #000000;
 	margin: auto;
@@ -248,7 +248,7 @@ input[type=text]:focus {
 
 .songartist {
 	font-family: Eurostile;
-	font-size: 38px;
+	font-size: 31px;
 	text-align: center;
 	color: #5d5d5d;
 	margin: auto;
@@ -259,7 +259,7 @@ input[type=text]:focus {
 .controls {
 	text-align: center;
 	margin: auto;
-	margin-top:25px;
+	margin-top:5px;
 }
 
 .searchArea {
