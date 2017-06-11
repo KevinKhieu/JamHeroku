@@ -403,4 +403,12 @@ html {
 		float: right;
 		margin-bottom: 2px;
 	}
+
+	.playlistSongInfoArea {
+		width: 80%;
+	}
+
+	.playlistSongLikeArea {
+		width: 20%;
+	}
 }
