@@ -6,7 +6,7 @@ var nowPlayingSchema = new mongoose.Schema({
 	id: String,  // If id === '', then there is no song currently playing.
 	songName: String,
 	artist: String,
-	albumId: String,
+	albumUrl: String,
 
 	isPlaying: Boolean,
 	timeResumed: Number,  // timestamp

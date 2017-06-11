@@ -39,7 +39,7 @@ angular.module('songServices', [])
 	o.set = function(songDBDatas) {
 		// We need to figure out if we upvoted each song
 		songDBDatas.forEach(function(songData) {
-			songData.iUpvoted = didIUpvote(songData.upvotes, socket.myIP);
+			songData.iUpvoted = false; //didIUpvote(songData.upvotes, socket.myIP);
 		});
 
 		angular.copy(songDBDatas, o.songs);
@@ -48,7 +48,7 @@ angular.module('songServices', [])
 
 	/* Call to add a single song, given in database format, to songs. */
 	o.add = function(songDBData) {
-		songDBData.iUpvoted = didIUpvote(songDBData.upvotes, socket.myIP);
+		songDBData.iUpvoted = false; //didIUpvote(songDBData.upvotes, socket.myIP);
 
 		o.songs.push(songDBData);
 		o._sort();
@@ -58,10 +58,15 @@ angular.module('songServices', [])
 	o.setUpvotes = function(id, upvotes) {
 		var i = o._findById(id);
 		o.songs[i].upvotes = upvotes;
-		o.songs[i].iUpvoted = didIUpvote(upvotes, socket.myIP);
+		// o.songs[i].iUpvoted = didIUpvote(upvotes, socket.myIP);
 		console.log(id + ' has ' + upvotes.length + ' upvotes.');
-		console.log(o);
+		// console.log(o);
 		o._sort();
+	};
+
+	o.iVoted = function(id, val) {
+		var i = o._findById(id);
+		o.songs[i].iUpvoted = val;
 	};
 
 	o.removeById = function(id) {

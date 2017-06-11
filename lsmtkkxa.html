@@ -36,13 +36,14 @@
 				<p class = "title">NOW PLAYING</p>
 				<div class="image-cropper">
 					<div class="imageHolder">
-						<img ng-src="{{main.imgURL}}" class = "songImg"/>
+						<img ng-src="{{main.nowPlaying ? main.nowPlaying.albumUrl : 'img/noImg.png'}}"
+							class = "songImg"/>
 						<img src="img/circle.png" class = "border"/>
 					</div>
 
 				</div>
 				<div class="controls">
-					<!-- <button ng-click="main.reset()">Reset DB</button> -->
+					<button ng-click="main.reset()">Reset DB</button>
 					<button id = "playButton" ng-click="main.togglePlay()">
 						<img ng-src="{{main.nowPlaying.isPlaying ? 'img/pause.png' : 'img/play.png'}}" class="controlButtons"/></button>
 					<button id = "skipButton" ng-click="main.Skip()"><img src="img/skip.png" class="controlButtons"/></button>

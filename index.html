@@ -36,7 +36,8 @@
 				<p class = "title">NOW PLAYING</p>
 				<div class="image-cropper">
 					<div class="imageHolder">
-						<img ng-src="{{main.imgURL}}" class = "songImg"/>
+						<img ng-src="{{main.nowPlaying ? main.nowPlaying.albumUrl : 'img/noImg.png'}}"
+							class = "songImg"/>
 						<img src="img/circle.png" class = "border"/>
 					</div>
 

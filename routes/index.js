@@ -43,12 +43,12 @@ function applyVote(n, songId, ip, transport) {
 
 	Entry.findOne({'id': songId}, function(err, song) {
 		if(err) {
-			handleError(socket, err.message, "Failed to find song with given id to " + n + "vote.");
+			handleError(transport, err.message, "Failed to find song with given id to " + n + "vote.");
 		} else {
 
 			song[n + 'vote'] (ip, function(err, doc) {
 				if(err) {
-					handleError(socket, err.message, "Failed to " + n + "vote song.");
+					handleError(transport, err.message, "Failed to " + n + "vote song.");
 
 				} else {
 					console.log("Broadcasting push:" + n + "vote...");
@@ -84,7 +84,7 @@ function setNowPlaying(newNowPlaying, callback) {
 		np.id = newNowPlaying.id;
 		np.songName = newNowPlaying.songName;
 		np.artist = newNowPlaying.artist;
-		np.albumId = newNowPlaying.albumId;
+		np.albumUrl = newNowPlaying.albumUrl;
 		np.isPlaying = newNowPlaying.isPlaying;
 		np.timeResumed = newNowPlaying.timeResumed;
 		np.resumedSeekPos = newNowPlaying.resumedSeekPos;
@@ -108,6 +108,7 @@ function initNowPlaying() {
 				id: '',
 				songName: '',
 				artist: '',
+				albumUrl: '',
 
 				isPlaying: false,
 				// timeResumed: undefined,  // not set yet
@@ -195,19 +196,18 @@ io.sockets.on('connection', function(socket) {
 				console.log("Successfully removed now-playing song from DB queue.");
 				if(data.lp.artist === "") data.lp.artist = "No Previous Song";
 
-				setLastPlayed(data.lp, function(err, lastPlayed) {
-					setNowPlaying(data.np, function(err, nowPlaying) {
+				// Get urls of Now Playing song
+				googlePlayAPI.getStreamURL(pm, data.np, function(songUrl) {
+					googlePlayAPI.getAlbumURL(pm, data.np, function(albumUrl) {
+						data.np.albumUrl = albumUrl;
 
-						// Get streaming url of Now Playing song
-						googlePlayAPI.getStreamURL(pm, nowPlaying, function(songUrl) {
-							console.dir(nowPlaying);
-							googlePlayAPI.getAlbumURL(pm, nowPlaying, function(albumUrl) {
+						setLastPlayed(data.lp, function(err, lastPlayed) {
+							setNowPlaying(data.np, function(err, nowPlaying) {
 								console.log("Broadcasting push:now-playing...");
 								io.emit('push:now-playing', {
 									np: nowPlaying,
 									lp: lastPlayed,
-									npUrl: songUrl,
-									npAlbumUrl: albumUrl
+									npUrl: songUrl
 								});
 							});
 						});
@@ -288,6 +288,7 @@ io.sockets.on('connection', function(socket) {
 			id: '',
 			songName: '',
 			artist: '',
+			albumUrl: '',
 
 			isPlaying: false,
 			// timeResumed: undefined,  // not set yet

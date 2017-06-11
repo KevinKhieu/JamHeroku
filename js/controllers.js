@@ -24,12 +24,12 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 		$scope.main.searchList = [];
 		$scope.main.imgURL = "img/noImg.png";
 
-		$scope.main.buttonimg = 'img/pause.png';
-		if(!$scope.main.nowPlaying.isPlaying) {
-			$scope.main.buttonimg = 'img/pause.png';
-		} else {  // Pause
-			$scope.main.buttonimg = 'img/play.png';
-		}
+		// $scope.main.buttonimg = 'img/pause.png';
+		// if(!$scope.main.nowPlaying.isPlaying) {
+		// 	$scope.main.buttonimg = 'img/pause.png';
+		// } else {  // Pause
+		// 	$scope.main.buttonimg = 'img/play.png';
+		// }
 
 		/* EVENT HANDLERS */
 
@@ -43,9 +43,11 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 			) {
 				// we will 'unlike' it
 				socket.emit('send:downvote', {'id': id} );
+				songs.iVoted(id, false);
 			} else {
 				// we will 'like' it
 				socket.emit('send:upvote', {'id': id} );
+				songs.iVoted(id, true);
 			}
 
 			console.log("heart clicked for " + id);
@@ -158,21 +160,10 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 			aud.play();
 		}
 
-		function _setAsNowPlaying(newNowPlaying, newLastPlayed, albumUrl) {
-			// set last played display
-			// must set last played before now playing because
-			// newLastPlayed may be $scope.main.nowPlaying
+		function _setAsNowPlaying(newNowPlaying, newLastPlayed) {
 			$scope.main.lastPlayed = newLastPlayed;
-			console.log(albumUrl);
-
-			// set now playing display
+			// must set last played before now playing to avoid clobbering
 			$scope.main.nowPlaying = newNowPlaying;
-			if (albumUrl == null) {
-				$scope.main.imgURL = "img/noImg.png";
-			} else {
-				$scope.main.imgURL = albumUrl;
-			}
-			// TODO: set album artwork using albumUrl
 
 			// TODO: seek bar
 		}
@@ -262,10 +253,10 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 		// Receive playback events from server
 
 		socket.on('push:now-playing', function(data) {
-			console.log("Now Playing: " + data.np.songName + " by " + data.np.artist);
-			_setAsNowPlaying(data.np, data.lp, data.npAlbumUrl);
+			_setAsNowPlaying(data.np, data.lp);
 			if(data.np.songName === "") return;
 
+			console.log("Now Playing: " + data.np.songName + " by " + data.np.artist);
 			if(document.getElementById('skipButton')) {  // We are on host
 				// Actually start playing song
 				console.log("now playing from " + data.npUrl);
