@@ -36,18 +36,17 @@
 				<p class = "title">NOW PLAYING</p>
 				<div class="image-cropper">
 					<div class="imageHolder">
-						<img src="img/noImg.png" class = "songImg"/>
+						<img ng-src="{{main.imgURL}}" class = "songImg"/>
 						<img src="img/circle.png" class = "border"/>
 					</div>
 
 				</div>
 				<div class="controls">
-					<!-- <button ng-click="main.reset()">Reset DB</button> -->
-					<button id = "playButton" ng-click="main.togglePlay()"><img ng-src="{{main.buttonimg}}" class="controlButtons"/></button>
-
+					<button ng-click="main.reset()">Reset DB</button>
+					<button id = "playButton" ng-click="main.togglePlay()">
+						<img ng-src="{{main.nowPlaying.isPlaying ? 'img/pause.png' : 'img/play.png'}}" class="controlButtons"/></button>
+					<button id = "skipButton" ng-click="main.Skip()"><img src="img/skip.png" class="controlButtons"/></button>
 <!-- 					<button id = "pauseButton" ng-click="main.pauseSong()"><img src="img/pause.png" class="controlButtons"/></button> -->
-					<button id = "skipButton" ng-click="main.skipSong()"><img src="img/skip.png" class="controlButtons"/></button>
-					<!-- <button ng-click="main.test()">Test</button> -->
 				</div>
 				<p class = "songname">{{main.nowPlaying.songName.toUpperCase()}}</p>
 				<p class = "songartist">{{main.nowPlaying.artist.toUpperCase()}}</p>
@@ -97,7 +96,6 @@
 										</div>
 										<p class="hi">{{song.upvotes.length}}</p>
 									</div>
-									
 								</div>
 								<hr class = "fadedLine">
 							</div>
@@ -128,7 +126,6 @@
 										</div>
 										<p class="hi">{{song.upvotes.length}}</p>
 									</div>
-									
 								</div>
 								<hr class = "fadedLine">
 							</div>

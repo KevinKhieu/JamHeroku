@@ -43,7 +43,7 @@ exports.search = function(pm, song, callback) {
                     artist: data.entries[entry].track['artist'],
                     songName: data.entries[entry].track['title'],
                     id: data.entries[entry].track['storeId'],
-                    albumid: data.entries[entry].track['albumId']
+                    albumId: data.entries[entry].track['albumId']
                 });
             }
         }
@@ -59,7 +59,7 @@ exports.getStreamURL = function(pm, song, callback) {
 };
 
 exports.getAlbumURL = function(pm, song, callback) {
-    pm.getAlbum(song['albumid'], true, function(err, data) {
+    pm.getAlbum(song['albumId'], true, function(err, data) {
         if (err) console.log("Error getting album url...");
         else callback(data.albumArtRef);
     });

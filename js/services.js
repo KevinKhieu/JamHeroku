@@ -122,6 +122,7 @@ angular.module('songServices', [])
 	});
 
 	socket.on('push:add-song', function(data) {
+		console.log("received push:add-song: ");
 		songs.add(data);
 	});
 

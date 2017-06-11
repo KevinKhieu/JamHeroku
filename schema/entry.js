@@ -13,7 +13,7 @@ var entrySchema = new mongoose.Schema({
 	songName: String,
 	artist: String,
 	upvotes: [upvoteSchema],
-	link: String,
+	albumId: String,
 	userAdded: String
 });
 

@@ -36,17 +36,11 @@
 				<p class = "title">NOW PLAYING</p>
 				<div class="image-cropper">
 					<div class="imageHolder">
-						<img src="img/noImg.png" class = "songImg"/>
+						<img ng-src="{{main.imgURL}}" class = "songImg"/>
 						<img src="img/circle.png" class = "border"/>
 					</div>
 
 				</div>
-<!-- 				<div class="controls">
-					<button ng-click="main.reset()">Reset DB</button>
-					<button ng-click="main.beginPlayback()">Begin Playback</button>
-					<button ng-click="main.togglePlay()">{{main.nowPlaying.isPlaying ? "Pause" : "Play"}}</button>
-					<button ng-click="main.test()">Test</button>
-				</div> -->
 				<p class = "songname">{{main.nowPlaying.songName.toUpperCase()}}</p>
 				<p class = "songartist">{{main.nowPlaying.artist.toUpperCase()}}</p>
 			</div>
@@ -95,7 +89,7 @@
 										</div>
 										<p class="hi">{{song.upvotes.length}}</p>
 									</div>
-									
+
 								</div>
 								<hr class = "fadedLine">
 							</div>
@@ -126,7 +120,7 @@
 										</div>
 										<p class="hi">{{song.upvotes.length}}</p>
 									</div>
-									
+
 								</div>
 								<hr class = "fadedLine">
 							</div>
@@ -137,9 +131,6 @@
 			</div>
 			</div>
 		</script>
-		<audio id = "audioElement" autoplay="false">
-			Oh No! Your browser doesn't support audio
-		</audio>
 
 	</body>
 
