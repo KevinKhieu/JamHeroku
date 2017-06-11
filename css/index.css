@@ -368,6 +368,10 @@ html {
 }
 
 @media only screen and (max-device-width: 800px) {
+
+	.lastPlayed {
+		font-size: ;
+	}
     /* For Phones: */
     .playlistSong {
 		font-family: Eurostile;
@@ -410,9 +414,19 @@ html {
 
 	.playlistSongLikeArea {
 		width: 20%;
+		height: 100%;
 	}
 
 	.like-icon {
+		height: 100%;
+		width: 100%;
+	}
+
+	.like-wrapper {
+		height: 100%;
+	}
+
+	.like-button {
 		height: 80%;
 		width: 80%;
 	}
