@@ -18,27 +18,32 @@ var entrySchema = new mongoose.Schema({
 });
 
 entrySchema.methods.upvote = function(ip, callback) {
-	var i = this.upvotes.findIndex(function(upvote) {
-		return upvote.ip === ip;
-	});
-	if(i === -1) {
-		this.upvotes.push({ip: ip});
-		this.save(callback);
-	} else {
-		callback({message: "The given ip already upvoted this song."});
-	}
+	this.upvotes.push({ip: ip});
+	this.save(callback);	
+	// var i = this.upvotes.findIndex(function(upvote) {
+	// 	return upvote.ip === ip;
+	// });
+	// if(i === -1) {
+	// 	this.upvotes.push({ip: ip});
+	// 	this.save(callback);
+	// } else {
+	// 	callback({message: "The given ip already upvoted this song."});
+	// }
 };
 
 entrySchema.methods.downvote = function(ip, callback) {
-	var i = this.upvotes.findIndex(function(upvote) {
-		return upvote.ip === ip;
-	});
-	if(i === -1) {
-		callback({message: "Couldn't find upvote with given ip to remove."});
-	} else {
-		this.upvotes.splice(i, 1);
-		this.save(callback);
-	}
+	// var i = this.upvotes.findIndex(function(upvote) {
+	// 	return upvote.ip === ip;
+	// });
+	// if(i === -1) {
+	// 	callback({message: "Couldn't find upvote with given ip to remove."});
+	// } else {
+	// 	this.upvotes.splice(i, 1);
+	// 	this.save(callback);
+	// }
+
+	this.upvotes.splice(i, 1);
+	this.save(callback);
 };
 
 // Create model for schema
