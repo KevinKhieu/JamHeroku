@@ -470,4 +470,12 @@ html {
 	.title {
 		font-size: 50px;
 	}
+
+	.noBottomPadding {
+		padding-bottom: 32px;
+	}
+}
+
+.noBottomPadding {
+	padding-bottom: 1px;
 }
