@@ -371,7 +371,7 @@ html {
     /* For Phones: */
     .playlistSong {
 		font-family: Eurostile;
-		font-size: 35px;
+		font-size: 1.5vw;
 		text-align: right;
 		width: 90%;
 		color: #000000;
@@ -390,7 +390,7 @@ html {
 
 	.playlistArtist {
 		font-family: Eurostile;
-		font-size: 26px;
+		font-size: 1.5vw;
 		text-align: right;
 		width: 98%;
 		color: #777777;
