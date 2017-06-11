@@ -370,12 +370,12 @@ html {
 @media only screen and (max-device-width: 800px) {
 
 	.lastPlayed {
-		font-size: ;
+		font-size: 40px;
 	}
     /* For Phones: */
     .playlistSong {
 		font-family: Eurostile;
-		font-size: 4vw;
+		font-size: 4.5vw;
 		text-align: right;
 		width: 90%;
 		color: #000000;
@@ -394,7 +394,7 @@ html {
 
 	.playlistArtist {
 		font-family: Eurostile;
-		font-size: 3.5vw;
+		font-size: 4.0vw;
 		text-align: right;
 		width: 98%;
 		color: #777777;
@@ -443,7 +443,7 @@ html {
 		width: 96%;
 		float: right;
 		font-family: Eurostile;
-		font-size: 35px;
+		font-size: 40px;
 		color: #777777;
 		-webkit-transition: width 0.4s ease-in-out;
 		transition: width 0.4s ease-in-out;
