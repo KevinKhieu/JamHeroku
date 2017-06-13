@@ -263,7 +263,8 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 				console.log("now playing from " + data.npUrl);
 				$scope.main.nowPlaying.timeResumed = _playNow(data.npUrl);
 				$scope.main.nowPlaying.isPlaying = true;
-
+				var aud = document.getElementById("audioElement");
+				aud.play();
 			} else {
 				songs.removeById(data.np.id);
 			}
