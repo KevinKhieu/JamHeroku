@@ -191,6 +191,7 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 				$scope.main.lastPlayed.artist = $scope.main.nowPlaying.artist;
 				$scope.main.nowPlaying.songName = "No Current Song";
 				$scope.main.nowPlaying.artist = "";
+				$scope.main.imgURL = "img/noImg.png";
 				// TODO:
 				// socket.emit('send:now-playing', {
 				// 	np: null,
