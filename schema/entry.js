@@ -15,7 +15,8 @@ var entrySchema = new mongoose.Schema({
 	upvotes: [upvoteSchema],
 	albumId: String,
 	userAdded: String,
-	playlistId: String
+
+	roomId: String
 });
 
 entrySchema.methods.upvote = function(ip, callback) {

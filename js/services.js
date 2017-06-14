@@ -123,15 +123,19 @@ angular.module('songServices', [])
 	 * place to register with socket.on - can't do it in the controller because
 	 * it gets called twice there. */
 
-	socket.on('send:your-ip', function(ip) {
-		socket.myIP = ip;
-		if(document.getElementById("THIS_IS_HOST")) {
-			socket.emit("send:i-am-room-host");
-		}
-		var roomId = "room2";
-		console.log(roomId + "client");
-		socket.emit("send:join-room", {url : roomId});
-	});
+	 // ONLY LOADED FOR MainController, not on Landing page.
+
+	// socket.on('send:your-ip', function(ip) {
+	// 	socket.myIP = ip;
+	// socket.on('connection', function()) {
+	// 	var roomId = $stateParams.roomId;
+	// 	console.log("roomId: " + roomId);
+	// 	socket.emit("send:join-room", {url : roomId});
+	//
+	// 	if(document.getElementById("THIS_IS_HOST")) {
+	// 		socket.emit("send:i-am-room-host");
+	// 	}
+	// });
 
 	socket.on('push:queue', function(data) {
 		console.log('received push:queue event');

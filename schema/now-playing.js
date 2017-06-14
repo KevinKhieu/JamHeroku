@@ -21,6 +21,8 @@ var NO_LAST_PLAYED = {
 };
 
 var nowPlayingSchema = new mongoose.Schema({
+	roomId: String,
+
 	/// NOW PLAYING ///
 
 	id: String,  // If id === '', then there is no song currently playing.
@@ -73,49 +75,65 @@ var NowPlaying = {};
 
 NowPlaying.init = function(io) {
 	NowPlaying.io = io;
-	NowPlaying.reset();
 };
 
-NowPlaying.get = function(callback) {
-	NowPlayingModel.findOne(function(err, np) {
+NowPlaying.create = function(roomId, callback) {
+	var np = new NowPlayingModel({roomId: roomId});
+	np.reset(callback);  // saves automatically
+};
+
+NowPlaying.get = function(roomId, callback) {
+	NowPlayingModel.findOne({roomId:roomId}, function(err, np) {
 		if(err) {
 			console.log(err.message);
 		} else {
+			// console.log("getting NowPlaying entry for room " + roomId);
+			// console.dir(np);
+			// NowPlayingModel.find({}, function(err, nps) {
+			// 	console.dir(nps);
+			// });
 			callback(np);
 		}
 	});
 };
 
 /* Sets AND pushes NowPlaying to all connected clients */
-NowPlaying.set = function(newNowPlaying, room_id) {
-	NowPlaying.get(function(np) {
+NowPlaying.set = function(newNowPlaying, roomId) {
+	NowPlaying.get(roomId, function(np) {
+		if(np == null) return;  // can happen if access a room that doesn't exist
 		np.cycle(newNowPlaying, function(err, np) {
-			console.log("Broadcasting push:now-playing...");
-			NowPlaying.io.in(room_id).emit('push:now-playing', np);
+			console.log("Set now playing: broadcasting push:now-playing for room " + roomId);
+			NowPlaying.io.in(roomId).emit('push:now-playing', np);
 		});
 	});
 };
 
-NowPlaying.push = function(transport) {
-	NowPlaying.get(function(np) {
+NowPlaying.push = function(roomId, transport) {
+	NowPlaying.get(roomId, function(np) {
+		console.log("pushing NowPlaying entry for room " + roomId);
+		// console.dir(np);
 		transport.emit('push:now-playing', np);
 	});
 };
 
-NowPlaying.clear = function(room_id) {
-	NowPlaying.set(NOTHING_PLAYING, room_id);
+NowPlaying.clear = function(roomId) {
+	NowPlaying.set(NOTHING_PLAYING, roomId);
 };
 
-NowPlaying.reset = function(room_id) {
-	NowPlaying.get(function(np) {
-		np.reset(function(err, np) {
-			console.log("successfully reset Now Playing in database");
-			if(NowPlaying.io) {
-				console.log("Broadcasting push:now-playing...");
-				NowPlaying.io.in(room_id).emit('push:now-playing', np);
-			}
-		});
+NowPlaying.reset = function() {
+	NowPlayingModel.remove({}, function(err) {
+		if(err) console.log(err);
+		else console.log('  successfully cleared NowPlaying table');
 	});
+	// NowPlaying.get(function(np) {
+	// 	np.reset(function(err, np) {
+	// 		console.log("successfully reset Now Playing in database");
+	// 		if(NowPlaying.io) {
+	// 			console.log("Broadcasting push:now-playing...");
+	// 			NowPlaying.io.in(room_id).emit('push:now-playing', np);
+	// 		}
+	// 	});
+	// });
 };
 
 module.exports = NowPlaying;
