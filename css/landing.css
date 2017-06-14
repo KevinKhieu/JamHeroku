@@ -549,7 +549,8 @@ html {
 
 	.button3 {
 		width: 320px;
-		height: 80px;
+		height: 70px;
+		font-size: 30px;
 		margin-top: 50px;
 		display: block;
 	}
