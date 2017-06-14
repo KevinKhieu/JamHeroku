@@ -339,6 +339,33 @@ jamApp.controller('MainController', [
 		$scope.main.toggleSound = function () {
 			console.log($scope.main.isStreaming);
 			if ($scope.main.isStreaming) {
+				
+				if($scope.main.thisIsHost) {
+					var timeResumed = Date.now() / 1000;  // timestamp
+					var resumedSeekPos = aud.currentTime;  // time offset from beginning of song
+					socket.emit('send:play', {
+						resumedSeekPos: resumedSeekPos,
+						timeResumed: timeResumed
+					});
+					// _logEndTime(resumedSeekPos, timeResumed, aud.duration);
+				} else {
+					if(!$scope.main.nowPlaying.isPlaying) {
+						aud.pause();
+						return;
+						// This can happen if the song is paused when the user loads the page.
+					}
+
+					if($scope.main.nowPlaying.timeResumed) {
+						// if timeResumed is undefined, the event we received was the original one
+						// fired when the host started playing the song, and we should just
+						// start the song at the beginning.
+						_synchronizeSeekPosition();
+					} else {
+						var timeResumed = Date.now() / 1000;  // timestamp
+						var resumedSeekPos = aud.currentTime;  // time offset from beginning of song
+						// _logEndTime(resumedSeekPos, timeResumed, aud.duration);
+					}
+				}
 				aud.play();
 			}
 		};
