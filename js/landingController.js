@@ -1,12 +1,13 @@
 'use strict';
 
-angular.module('controller', ['songServices', 'ngResource']).controller('LandingController', [
+jamApp.controller('LandingController', [
 	'$scope',
 	'songs',
 	'socket',
 	'socket-controller',
+	'$location',
 	'$resource',
-	function($scope, songs, socket, socket_controller, $resource) {
+	function($scope, songs, socket, socket_controller, $location, $resource) {
 
 		$scope.main = {};
 
@@ -26,6 +27,8 @@ angular.module('controller', ['songServices', 'ngResource']).controller('Landing
 
 		$scope.main.queuedSong = null;		// STORES QUEUED SONG ID
 		$scope.main.currDropdown = null;
+
+		$scope.main.currRoomId = null;
 
 		// SEARCHING AND ADDING SONGS //
 
@@ -57,9 +60,27 @@ angular.module('controller', ['songServices', 'ngResource']).controller('Landing
 
 		$scope.main.enterExistingRoom = function() {
 			console.log("Entering Existing Room");
-			var string = $scope.searchString;
-			// SOCKEt
+			// SOCKET - valid room?
+			socket.emit('get:room-exists', {
+				roomName: currRoomName
+			});
 		}
+
+		socket.on('respond:room-exists', function(data) {
+			if (data.exists) {
+				var str = '/app/' + data.roomName;
+				$location.path(str);
+			}
+		});
+
+		socket.on('respond:create-room', function(data) {
+			if (data.roomName != null && data.hostKey != null) {
+				var str = '/host/' + data.roomName + '/' + data.hostKey;
+				$location.path(str);
+			} else {
+				alert("Invalid Room Name");
+			}
+		});
 
 	}
 ]);

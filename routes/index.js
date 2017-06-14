@@ -3,8 +3,7 @@
 // var Song = require('../schema/Songs');
 var Entry = require('../schema/entry');
 var NowPlaying = require('../schema/now-playing');
-var LastPlayed = require('../schema/last-played');
-var hardcodedMusicData = require('../data.json');
+var Room = require('../schema/room');
 var googlePlayAPI = require('../google-music/googleMusic');
 var PlayMusic = require('../google-music/play');
 
@@ -71,6 +70,14 @@ NowPlaying.init(io);
 // Set handlers for socket events
 io.sockets.on('connection', function(socket) {
 
+	var room_id = "";
+
+	socket.on('send:join-room', function(room) {
+		console.log("client joining room " + room.url);
+		socket.join(room.url);
+		room_id = room.url;
+	});
+
 	var is_room_host = false;
 	socket.on('send:i-am-room-host', function() {
 		is_room_host = true;
@@ -102,7 +109,7 @@ io.sockets.on('connection', function(socket) {
 				handleError(socket, err.message, "Failed to add song to list.");
 			} else {
 				console.log("Broadcasting push:add-song...");
-				io.emit('push:add-song', song);
+				io.in(room_id).emit('push:add-song', song);
 			}
 		});
 	});
@@ -110,25 +117,24 @@ io.sockets.on('connection', function(socket) {
 	// REMOVING SONG //
 	socket.on('send:remove-song', function(data) {
 		console.log('removing song: ' + data.id);
-
 		Entry.findOne({ id:data.id }).remove(function(err) {
 			if(err) {
 				handleError(socket, err.message, "DB: Failed to remove song from queue.");
 			} else {
 				console.log("Successfully removed song from DB queue.");
-				io.emit('push:remove-song', data);
+				io.in(room_id).emit('push:remove-song', data);
 			}
 		});
 	});
 
 	// UPVOTING //
 	socket.on('send:upvote', function(data) {
-		applyVote('up', data.id, ip, io);
+		applyVote('up', data.id, ip, io.in(room_id));
 	});
 
 	// DOWNVOTING //
 	socket.on('send:downvote', function(data) {
-		applyVote('down', data.id, ip, io);
+		applyVote('down', data.id, ip, io.in(room_id));
 	});
 
 	// MEDIA CONTROL FROM ROOM HOST //
@@ -149,13 +155,13 @@ io.sockets.on('connection', function(socket) {
 							data.songUrl = songUrl;
 							data.albumUrl = albumUrl;
 							data.isPlaying = true;
-							NowPlaying.set(data);
+							NowPlaying.set(data, room_id);
 						});
 					});
 				}
 			});
 		} else {  // we've reached the end of the queue
-			NowPlaying.clear();
+			NowPlaying.clear(room_id);
 		}
 	});
 
@@ -183,7 +189,7 @@ io.sockets.on('connection', function(socket) {
 				// 	console.log('received play event, but was already playing, so not forwarding to clients.');
 				// 	return;
 				// }
-				socket.broadcast.emit('push:play', data);
+				socket.broadcast.to(room_id).emit('push:play', data);
 			});
 		});
 	});
@@ -193,31 +199,57 @@ io.sockets.on('connection', function(socket) {
 		NowPlaying.get(function(np) {
 			np.isPlaying = false;
 			np.save(function(np) {
-				socket.broadcast.emit('push:pause');
+				socket.broadcast.to(room_id).emit('push:pause');
 			});
 		});
 	});
 
+
 	/* Dedupes any two adjacent songs with same name and artist. */
+	function duplicate(value, map) {
+		return map.has(value);
+	}
+
 	function filterUniques(results) {
 		var unique_songs = [];
-		for (var i = 0; i < results.length - 1; i+=2) {
-			if (results[i].songName === results[i + 1].songName && results[i].artist === results[i + 1].artist) {
-				console.log('detected duplicate');
-				unique_songs.push(results[i+1]);
-			} else {
+		var map = new Map();
+		for (var i = 0; i < results.length; i++) {
+			if (!duplicate(results[i].artist+results[i].songName, map)) {
 				unique_songs.push(results[i]);
-				unique_songs.push(results[i+1]);
+				map.set(results[i].artist+results[i].songName, "Unique");
 			}
 		}
 		return unique_songs;
 	}
-
 	socket.on('get:search', function(data) {
 		console.log('getting search for ' + data.query);
 		googlePlayAPI.search(pm, data.query, function(results) {
 			results = filterUniques(results);
 			socket.emit('send:search', {results: results});
+		});
+	});
+
+	socket.on('send:create-room', function(data) {
+		console.log('received room creation request');
+		Room.findOne({name: data.name}, function(err, room) {
+			if(err) {
+				handleError(socket, err.message, "Error searching for room with name " + data.name);
+			} else {
+				if(room) {
+					// room is already taken
+					socket.emit('respond:create-room', {url: null});
+				} else {
+					// create new room
+					room = new Room({name: data.name, url: data.name});
+					room.save(function(err, room) {
+						if(err) {
+							handleError(socket, err.message, "Error creating room");
+						} else {
+							socket.emit('respond:create-room', {url:room.url});
+						}
+					});
+				}
+			}
 		});
 	});
 
@@ -232,9 +264,9 @@ io.sockets.on('connection', function(socket) {
 			}
 			console.log('  successfully removed all songs from database');
 
-			pushQueue(io);
+			pushQueue(io.in(room_id));
 		});
 
-		NowPlaying.reset();
+		NowPlaying.reset(room_id);
 	});
 })};

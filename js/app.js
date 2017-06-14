@@ -2,33 +2,23 @@
 
 /* Entry point for Angular app. */
 
-var jamApp = angular.module('jamApp', ['controller', 'ui.router','ngRoute']);
-
-// jamApp.config(['$routeProvider',
-//     function ($routeProvider) {
-//         $routeProvider.
-//             when('/home', {
-//                 templateUrl: '../index.html',
-//                 controller: 'MainController'
-//             }).
-//             when('/landing', {
-//                 templateUrl: '../landing.html',
-//                 controller: 'LandingController'
-//             }).
-//             otherwise({
-//                 redirectTo: '/landing'
-//             });
-//     }]);
+var jamApp = angular.module('jamApp', ['ui.router', 'songServices', 'ngResource']);
 
 jamApp.config([
 '$stateProvider',
-'$urlRouterProvider',
-function($stateProvider, $urlRouterProvider) {
+'$urlRouterProvider','$locationProvider',
+function($stateProvider, $urlRouterProvider, $locationProvider) {
 
 	$stateProvider
-		.state('home', {
-			url: '/home',
-			templateUrl: '/home.html',
+		.state('client', {
+			url: '/app/:roomId',
+			templateUrl: '/client.html',
+			controller: 'MainController'
+		})
+
+		.state('host', {
+			url: '/host/:roomId/:hostId',
+			templateUrl: '/host.html',
 			controller: 'MainController'
 		})
 
@@ -38,5 +28,6 @@ function($stateProvider, $urlRouterProvider) {
 			controller: 'LandingController'
 		});
 
-	$urlRouterProvider.otherwise('home');
+	$urlRouterProvider.otherwise('/landing');
+ 	// $locationProvider.html5Mode(true);
 }]);

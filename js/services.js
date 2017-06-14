@@ -82,12 +82,13 @@ angular.module('songServices', [])
 
 	o.contains = function(id) {
 		return o._findById(id) >= 0;
-	}
+	};
 
 	o.getById = function(id) {
 		var i = o._findById(id);
 		return o.songs[i];
 	};
+
 
 	return o;
 }])
@@ -127,6 +128,9 @@ angular.module('songServices', [])
 		if(document.getElementById("THIS_IS_HOST")) {
 			socket.emit("send:i-am-room-host");
 		}
+		var roomId = "room2";
+		console.log(roomId + "client");
+		socket.emit("send:join-room", {url : roomId});
 	});
 
 	socket.on('push:queue', function(data) {
@@ -134,14 +138,14 @@ angular.module('songServices', [])
 		songs.set(data);
 	});
 
-	socket.on('push:add-song', function(data) {
-		console.log("received push:add-song: ");
-		songs.add(data);
-	});
-
 	socket.on('push:remove-song', function(data) {
 		console.log("removing song with id " + data.id);
 		songs.removeById(data.id);
+	});
+
+	socket.on('push:add-song', function(data) {
+		console.log("received push:add-song: ");
+		songs.add(data);
 	});
 
 	socket.on('push:upvote', function(data) {

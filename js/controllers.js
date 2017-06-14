@@ -1,15 +1,21 @@
 'use strict';
 
-angular.module('controller', ['songServices', 'ngResource']).controller('MainController', [
+jamApp.controller('MainController', [
 	'$scope',
 	'songs',
 	'socket',
 	'socket-controller',
+	'$location',
+	'$stateParams',
 	'$resource',
-	function($scope, songs, socket, socket_controller, $resource) {
-
+	function($scope, songs, socket, socket_controller, $location, $stateParams, $resource) {
+		//console.log($stateParams.hostId);
 		$scope.main = {};
+		var hostId = $stateParams.hostId;
+		var roomId = $stateParams.roomId;
 
+		
+		console.log(roomId);
 		// $scope.main.nowPlaying = {
 		// 	songName: "",
 		// 	artist: ""
@@ -29,6 +35,24 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 
 		$scope.main.thisIsHost = document.getElementById("THIS_IS_HOST") != null;
 		$scope.main.isStreaming = false;
+
+		if ($scope.main.thisIsHost) {
+			console.log("here")
+			if (!hostId || !roomId || invalidHostId(hostId) || invalidRoomId(roomId)) {
+				$location.path("/landing");
+			}
+		} else {
+			if (!roomId || invalidRoomId(roomId)) {
+				$location.path("/landing");
+			}
+		}
+		function invalidHostId(id) {
+			return false;
+		}
+
+		function invalidRoomId(id) {
+			return false;
+		}
 
 		/* EVENT HANDLERS */
 		$scope.main.toggleClick = function($event, id) {
@@ -223,6 +247,10 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 
 			var aud = document.getElementById("audioElement");
 			aud.onended = function() { $scope.$apply(beginNextSong) };
+			beginNextSong();
+		};
+
+		aud.onended = function() { 
 			beginNextSong();
 		};
 

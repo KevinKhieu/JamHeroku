@@ -87,11 +87,11 @@ NowPlaying.get = function(callback) {
 };
 
 /* Sets AND pushes NowPlaying to all connected clients */
-NowPlaying.set = function(newNowPlaying) {
+NowPlaying.set = function(newNowPlaying, room_id) {
 	NowPlaying.get(function(np) {
 		np.cycle(newNowPlaying, function(err, np) {
 			console.log("Broadcasting push:now-playing...");
-			NowPlaying.io.emit('push:now-playing', np);
+			NowPlaying.io.in(room_id).emit('push:now-playing', np);
 		});
 	});
 };
@@ -102,17 +102,17 @@ NowPlaying.push = function(transport) {
 	});
 };
 
-NowPlaying.clear = function() {
-	NowPlaying.set(NOTHING_PLAYING);
+NowPlaying.clear = function(room_id) {
+	NowPlaying.set(NOTHING_PLAYING, room_id);
 };
 
-NowPlaying.reset = function() {
+NowPlaying.reset = function(room_id) {
 	NowPlaying.get(function(np) {
 		np.reset(function(err, np) {
 			console.log("successfully reset Now Playing in database");
 			if(NowPlaying.io) {
 				console.log("Broadcasting push:now-playing...");
-				NowPlaying.io.emit('push:now-playing', np);
+				NowPlaying.io.in(room_id).emit('push:now-playing', np);
 			}
 		});
 	});

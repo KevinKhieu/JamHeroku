@@ -83,9 +83,13 @@ body {
 	padding-top: 1px;
 }
 
+input[type=text].rightInput {
+	float: right;
+}
+
 input[type=text] {
 		width: 96%;
-		float: right;
+		/*float: right;*/
 		font-family: Eurostile;
 		font-size: 16px;
 		color: #777777;
@@ -96,6 +100,7 @@ input[type=text] {
 	border: none;
 	border-bottom: solid 2px #c9c9c9;
 	transition: border 0.3s;
+	outline: none;
 }
 
 /* When the input field gets focus, change its width to 100% */
@@ -575,7 +580,6 @@ input:checked + .slider:before {
 
 	input[type=text] {
 		width: 96%;
-		float: right;
 		font-family: Eurostile;
 		font-size: 40px;
 		color: #777777;
