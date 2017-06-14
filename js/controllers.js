@@ -168,8 +168,9 @@ jamApp.controller('MainController', [
 		};
 		$scope.main.audPlay = function() {
 			var aud = document.getElementById("audioElement");
-			$scope.main.hasPlayed = !$scope.main.hasPlayed;
 			aud.play();
+			$scope.main.hasPlayed = !$scope.main.hasPlayed;
+			
 			// hi
 		}
 		// PLAYBACK SECTION //

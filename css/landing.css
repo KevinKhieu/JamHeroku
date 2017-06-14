@@ -325,6 +325,45 @@ html {
   cursor: pointer;
 }
 
+.button3
+{
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+  color: #000;
+
+  text-align: center;
+	float: middle;
+
+  font-size: 15px;
+  font-family: "Nunito", sans-serif;
+  font-weight: 300;
+  
+  margin: auto;
+  margin-top: 50px;
+  
+  padding: 10px 10px;
+  width: 190px;
+  height:40px;
+  display: block;
+
+  background: #000;
+  border: 1px solid #000;
+  color: #FFF;
+  overflow: hidden;
+  
+  transition: all 0.5s;
+}
+
+.button3:hover, .button3:active 
+{
+  text-decoration: none;
+  color: #000;
+  border-color: #000;
+  background: #FFF;
+  cursor: pointer;
+}
+
 
 @media only screen and (max-device-width: 800px) {
 	@font-face {
@@ -506,6 +545,13 @@ html {
 		margin: auto;
 		margin-top: 10px;
 		padding-bottom: 10px;
+	}
+
+	.button3 {
+		width: 320px;
+		height: 80px;
+		margin-top: 50px;
+		display: block;
 	}
 
 	.textArea4 {

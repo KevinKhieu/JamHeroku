@@ -16,7 +16,7 @@
 				<p class = "songname">{{main.nowPlaying.songName.toUpperCase()}}</p>
 				<p class = "songartist">{{main.nowPlaying.artist.toUpperCase()}}</p>
 
-				<span class="button2" ng-click="main.audPlay()" ng-if="!main.hasPlayed">Enable Sound</span>
+				<span class="button3" ng-click="main.audPlay()" ng-if="!main.hasPlayed">Enable Sound</span>
 				<label class="switch" ng-if="main.hasPlayed">
 					<input id = "playCheck" type="checkbox" ng-click = "main.toggleSound()" ng-model="main.isStreaming">
 					<div class="slider round"></div>
