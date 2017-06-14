@@ -110,7 +110,7 @@ jamApp.controller('MainController', [
 		}
 
 		var typingTimer;                //timer identifier
-		var doneTypingInterval = 250;  //time in ms (5 seconds)
+		var doneTypingInterval = 200;  //time in ms (5 seconds)
 		// On press enter in the search bar, call search()
 		$("#search_bar").on('keyup', function (e) {
 			// if (e.keyCode == 13) {
@@ -141,6 +141,7 @@ jamApp.controller('MainController', [
 			} else {
 				hideOptions();
 				$("#search_bar").value = '';
+				$scope.searchString = '';
 				$scope.$apply(function() {
 					$scope.main.searchResults = false;
 				});
