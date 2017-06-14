@@ -139,9 +139,10 @@ jamApp.controller('MainController', [
 			if (el.parents('div#targetArea').length) {
 
 			} else {
+				$scope.searchString = '';
 				hideOptions();
 				$("#search_bar").value = '';
-				$scope.searchString = '';
+				
 				$scope.$apply(function() {
 					$scope.main.searchResults = false;
 				});
@@ -164,7 +165,10 @@ jamApp.controller('MainController', [
 			// $("#search_bar").value = '';
 			// $scope.main.searchResults = false;
 		};
-
+		$scope.main.audPlay = function() {
+			var aud = document.getElementById("audioElement");
+			aud.play();
+		}
 		// PLAYBACK SECTION //
 
 		// When host starts playing music, send timestamp for playback synchronization
@@ -334,6 +338,9 @@ jamApp.controller('MainController', [
 
 		$scope.main.toggleSound = function () {
 			console.log($scope.main.isStreaming);
+			if ($scope.main.isStreaming) {
+				aud.play();
+			}
 		};
 
 		$scope.main.showOptions = function($event, id) {
