@@ -222,7 +222,7 @@ input[type=text]:focus {
 .songImg {
 	display: inline;
 	margin: 0 auto;
-	height: 650px;
+	height: 450px;
 	width: auto;
 	z-index: 1;
 	position: absolute;
@@ -653,5 +653,14 @@ input:checked + .slider:before {
 
 	.slider.round:before {
 	  border-radius: 50%;
+	}
+
+	.songImg {
+		display: inline;
+		margin: 0 auto;
+		height: 650px;
+		width: auto;
+		z-index: 1;
+		position: absolute;
 	}
 }
