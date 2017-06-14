@@ -222,7 +222,7 @@ input[type=text]:focus {
 .songImg {
 	display: inline;
 	margin: 0 auto;
-	height: 450px;
+	height: 650px;
 	width: auto;
 	z-index: 1;
 	position: absolute;
