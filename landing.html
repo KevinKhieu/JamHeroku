@@ -5,6 +5,7 @@
 		<img src="img/logo.png" class = "logo2"/>
 		<p class = "songname2 shimmer">Welcome to Jam</p>
 		<p class = "songartist3 mobileBump">Enter Existing Room ID Below</p>
+		<p class = "subheading">Software Fair Room ID: "cs194"</p>
 		<div class = "textArea1">
 			<input type="text" name="search" placeholder="Enter Room ID"
 							ng-model="searchString" class="style-4 textArea1" id="search_bar">
@@ -23,7 +24,7 @@
 			<input type="text" name="search" placeholder="Enter Host Key"
 							ng-model="hostKey" class="style-4 textArea4" id="host_key">
 			<div class = "space" ng-if="!main.invalidHost"></div>
-			<p class="helper2" ng-if="main.invalidHost">Invalid Room Id</p>
+			<p class="helper2" ng-if="main.invalidHost">Room ID Taken</p>
 			<span class="button2" ng-click="main.createRoom()">Create</span>
 			<!-- </a> -->
 		</div>
