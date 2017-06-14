@@ -7,17 +7,6 @@ body {
 	 background-color: #FFFFFF;
 }
 
-.songStuff {
-	display: inline-block;
-	float: right;
-	width:100%;
-}
-
-.playlistSongInfoArea {
-	float: right;
-	width: 90%;
-}
-
 .spacer {
 	height: 10px;
 }
