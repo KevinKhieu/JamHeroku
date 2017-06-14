@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="jamApp">
+	<head>
+		<title>Jam!</title>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+		<script src="./node_modules/angular/angular.js" type="text/javascript" ></script>
+		<link href="./bower_components/angular-material/angular-material.css" rel="stylesheet" />
+		<script src="./bower_components/angular-animate/angular-animate.js" type="text/javascript" ></script>
+		<script src="./bower_components/angular-aria/angular-aria.js" type="text/javascript" ></script>
+		<script src="./bower_components/angular-material/angular-material.js" type="text/javascript" ></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+
+		<script src="bower_components/angular-route/angular-route.js"></script>
+		<script src="bower_components/angular-resource/angular-resource.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="css/landing.css">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+		<script src="./js/landingController.js"></script>
+		<script src="./js/services.js"></script>
+		<script src="./js/app.js"></script>
+	</head>
+
+	<body>
+		<ui-view></ui-view>
+		<div class="w3-row-padding noBottomPadding">
+		<script type="text/ng-template" id = "/landing.html">
+			<div class = "middle w3-col w3-container l12">
+				<img src="img/logo.png" class = "logo"/>
+				<p class = "songname shimmer">Welcome to Jam</p>
+				<p class = "songartist">Enter Existing Room ID Below</p>
+				<div class = "textArea">
+					<input type="text" name="search" placeholder="Enter Room ID"
+									ng-model="searchString" class="style-4 textArea" id="search_bar">
+
+				</div>
+				<div class="textArea3">
+					<span class="button2" ng-click="main.enterExistingRoom()">Enter</span>
+				</div>
+				<p class = "songartist or">OR</p>
+				<div class = "textArea2">
+					<!-- <a href="#" class="button"> -->
+					<p class = "songartist2">Create A Room</p>
+					<input type="text" name="search" placeholder="Enter Room Name"
+									ng-model="roomName" class="style-4 textArea4" id="room_name">
+					<div class = "space20"></div>
+					<input type="text" name="search" placeholder="Enter Host Key"
+									ng-model="hostKey" class="style-4 textArea4" id="host_key">
+					<div class = "space"></div>
+					<span class="button2" ng-click="main.createRoom()">Create</span>
+					<!-- </a> -->
+				</div>
+			</div>
+		</script>
+
+	</body>
+
+</html>

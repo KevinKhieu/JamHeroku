@@ -63,4 +63,4 @@ exports.getAlbumURL = function(pm, song, callback) {
         if (err) console.log("Error getting album url...");
         else callback(data.albumArtRef);
     });
-}
+};

@@ -14,7 +14,8 @@ var entrySchema = new mongoose.Schema({
 	artist: String,
 	upvotes: [upvoteSchema],
 	albumId: String,
-	userAdded: String
+	userAdded: String,
+	playlistId: String
 });
 
 entrySchema.methods.upvote = function(ip, callback) {

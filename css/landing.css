@@ -1,0 +1,450 @@
+@font-face {
+   font-family: Eurostile;
+   src: url('Eurostile.ttf');
+}
+
+body {
+	 background-color: #FFFFFF;
+}
+
+.songStuff {
+	display: inline-block;
+	float: right;
+	width:100%;
+}
+
+.playlistSongInfoArea {
+	float: right;
+	width: 90%;
+}
+
+.spacer {
+	height: 10px;
+}
+
+.playlistSongLikeArea {
+	float: left;
+	width: 9%;
+	height: auto;
+	-webkit-transform: translateY(10%);
+	-ms-transform: translateY(10%);
+	transform: translateY(10%);
+	position: relative;
+	margin: auto;
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+	z-index: 1000;
+}
+
+.hi {
+	padding-top:0px;
+	margin-top:1px;
+}
+
+.title {
+	font-family: Eurostile;
+	font-size: 31px;
+	text-align: center;
+	color: #5d5d5d;
+	margin: auto;
+	padding-top: 40px;
+}
+
+.lastPlayed {
+	font-family: Eurostile;
+	font-size: 23px;
+	width: 100%;
+	text-align: center;
+	font-weight: bold;
+	text-align: right;
+	color: #777777;
+	padding-top: 10px;
+	margin-bottom: 1px;
+	padding-right: 35px;
+	float: right;
+}
+
+.lastPlayedSection {
+	display: table;
+	float:right;
+	height: 70px;
+	width: 100%;
+	word-wrap: break-word;
+	border: 1px;
+	padding-top: 1px;
+}
+
+input[type=text] {
+		width: 80%;
+		font-family: Eurostile;
+		font-size: 25px;
+		color: #777777;
+		-webkit-transition: width 0.4s ease-in-out;
+		transition: width 0.4s ease-in-out;
+
+		padding: 5px;
+	border: none;
+	border-bottom: solid 2px #c9c9c9;
+	transition: border 0.3s;
+	outline: none;
+	margin: auto;
+	float: middle;
+}
+
+/* When the input field gets focus, change its width to 100% */
+input[type=text]:focus {
+		width: 80%;
+		color: #5d5d5d;
+		font-family: Eurostile;
+		border-bottom: solid 2px #969696;
+		margin: auto;
+		float: middle;
+}
+
+
+.middle {
+	width: 90%;
+	float: middle;
+}
+
+.logo {
+	display: block;
+	margin: auto;
+	height: 140px;
+	width: auto;
+	margin-top: 40px;
+}
+
+.songname {
+	font-family: Eurostile;
+	font-size: 50px;
+	text-align: center;
+	color: #000000;
+	margin: auto;
+	padding-top: 10px;
+	padding-bottom:0px;
+}
+
+.songartist {
+	font-family: Eurostile;
+	font-size: 31px;
+	text-align: center;
+	color: #5d5d5d;
+	margin: auto;
+	margin-top:20px;
+	padding-top: 20px;
+}
+
+.songartist2 {
+	font-family: Eurostile;
+	font-size: 31px;
+	text-align: center;
+	color: #5d5d5d;
+	margin: auto;
+	margin-top:0px;
+	padding-top: 0px;
+}
+
+.or {
+	margin-top: 10px;
+	font-size: 40px;
+}
+
+.controls {
+	text-align: center;
+	margin: auto;
+	margin-top:5px;
+}
+
+.searchArea {
+	margin-top: 30px;
+	float:right;
+	padding-right: 30px;
+	width: 100%;
+	padding-bottom: 20px;
+}
+
+html {
+	background: #ffffff;
+}
+
+
+.textArea {
+	width: 400px;
+	text-align: center;
+	float: middle;
+	margin: auto;
+	padding-top: 10px;
+	padding-bottom: 15px;
+}
+
+.textArea2 {
+	width: 400px;
+	text-align: center;
+	float: middle;
+	margin: auto;
+	margin-top: 20px;
+	padding-bottom: 15px;
+}
+
+.textArea3 {
+	width: 400px;
+	text-align: center;
+	float: middle;
+	margin: auto;
+	margin-top: 10px;
+	padding-bottom: 10px;
+}
+
+.textArea4 {
+	width: 400px;
+	text-align: center;
+	float: middle;
+	margin: auto;
+	padding-top: 20px;
+	padding-bottom: 15px;
+	margin-top: 50px
+}
+
+.space {
+	height: 30px;
+}
+
+.space20 {
+	height: 10px;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.shimmer {
+  color: rgba(255,255,255,0.1);
+  background: -webkit-gradient(linear, left top, right top, from(#222), to(#222), color-stop(0.9, #fff));
+  background: -moz-gradient(linear, left top, right top, from(#222), to(#222), color-stop(0.9, #fff));
+  background: gradient(linear, left top, right top, from(#222), to(#222), color-stop(0.9, #fff));
+  -webkit-background-size: 125px 100%;
+  -moz-background-size: 125px 100%;
+  background-size: 125px 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  -webkit-animation-name: shimmer;
+  -moz-animation-name: shimmer;
+  animation-name: shimmer;
+  -webkit-animation-duration: 2s;
+  -moz-animation-duration: 2s;
+  animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-color: #222;
+}
+@-moz-keyframes shimmer {
+  0% {
+    background-position: top left;
+  }
+  100% {
+    background-position: top right;
+  }
+}
+@-webkit-keyframes shimmer {
+  0% {
+    background-position: top left;
+  }
+  100% {
+    background-position: top right;
+  }
+}
+@-o-keyframes shimmer {
+  0% {
+    background-position: top left;
+  }
+  100% {
+    background-position: top right;
+  }
+}
+@keyframes shimmer {
+  0% {
+    background-position: top left;
+  }
+  100% {
+    background-position: top right;
+  }
+}
+
+.button
+{
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+  color: #000;
+
+  font-size: 24px;
+  font-family: "Nunito", sans-serif;
+  font-weight: 300;
+  
+  margin: auto;
+  top:50px; right:0; bottom:0; left:0;
+  
+  padding: 15px 15px;
+  width: 220px;
+  height:30px;
+
+  background: #000;
+  border: 1px solid #000;
+  color: #FFF;
+  overflow: hidden;
+  
+  transition: all 0.5s;
+}
+
+.button:hover, .button:active 
+{
+  text-decoration: none;
+  color: #000;
+  border-color: #000;
+  background: #FFF;
+  cursor: pointer;
+}
+
+
+.button2
+{
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+  color: #000;
+
+  text-align: center;
+	float: middle;
+	margin: auto;
+
+  font-size: 15px;
+  font-family: "Nunito", sans-serif;
+  font-weight: 300;
+  
+  margin: auto;
+  margin-top: 50px;
+  
+  padding: 10px 10px;
+  width: 220px;
+  height:30px;
+
+  background: #000;
+  border: 1px solid #000;
+  color: #FFF;
+  overflow: hidden;
+  
+  transition: all 0.5s;
+}
+
+.button2:hover, .button2:active 
+{
+  text-decoration: none;
+  color: #000;
+  border-color: #000;
+  background: #FFF;
+  cursor: pointer;
+}
+
+
+@media only screen and (max-device-width: 800px) {
+
+	.lastPlayed {
+		font-size: 40px;
+	}
+    /* For Phones: */
+    .playlistSong {
+		font-family: Eurostile;
+		font-size: 4.5vw;
+		text-align: right;
+		width: 90%;
+		color: #000000;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+			overflow: hidden;
+		padding-top: 0px;
+		margin-top: 3px;
+		padding-right: 0px;
+		margin-bottom:0px;
+		padding-bottom:0px;
+		float: right;
+		cursor: pointer;
+	}
+
+
+	.playlistArtist {
+		font-family: Eurostile;
+		font-size: 4.0vw;
+		text-align: right;
+		width: 98%;
+		color: #777777;
+		padding-top: 0px;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+			overflow: hidden;
+		margin-top: 3px;
+		padding-right: 0px;
+		float: right;
+		margin-bottom: 2px;
+	}
+
+	.hi {
+		height: 20%;
+		width: auto;
+		font-size: 4vw;
+	}
+
+	input[type=text] {
+		width: 96%;
+		float: right;
+		font-family: Eurostile;
+		font-size: 40px;
+		color: #777777;
+		-webkit-transition: width 0.4s ease-in-out;
+		transition: width 0.4s ease-in-out;
+
+		padding: 5px;
+		border: none;
+		border-bottom: solid 2px #c9c9c9;
+		transition: border 0.3s;
+	}
+
+	.image-cropper {
+		width: 500px;
+		height: 500px;
+	}
+
+	.songname {
+		font-size: 70px;
+	}
+
+	.songartist {
+		font-size: 50px;
+	}
+
+	.title {
+		font-size: 50px;
+	}
+
+	.noBottomPadding {
+		padding-top: 32px!important;
+		padding-bottom: 10px;
+	}
+
+	.playCaption {
+		font-size: 30px;
+	}
+}

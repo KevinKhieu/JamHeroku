@@ -10,29 +10,27 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 
 		$scope.main = {};
 
-		$scope.main.nowPlaying = {
-			songName: "",
-			artist: ""
-		};
-
-		$scope.main.lastPlayed = {
-			songName: "",
-			artist: "No Previous Song"
-		};
+		// $scope.main.nowPlaying = {
+		// 	songName: "",
+		// 	artist: ""
+		// };
+		//
+		// $scope.main.lastPlayed = {
+		// 	songName: "",
+		// 	artist: "No Previous Song"
+		// };
 
 		$scope.main.searchResults = false;
 		$scope.main.searchList = [];
 		$scope.main.imgURL = "img/noImg.png";
 
-		// $scope.main.buttonimg = 'img/pause.png';
-		// if(!$scope.main.nowPlaying.isPlaying) {
-		// 	$scope.main.buttonimg = 'img/pause.png';
-		// } else {  // Pause
-		// 	$scope.main.buttonimg = 'img/play.png';
-		// }
+		$scope.main.queuedSong = null;		// STORES QUEUED SONG ID
+		$scope.main.currDropdown = null;
+
+		$scope.main.thisIsHost = document.getElementById("THIS_IS_HOST") != null;
+		$scope.main.isStreaming = false;
 
 		/* EVENT HANDLERS */
-
 		$scope.main.toggleClick = function($event, id) {
 
 			// Figured out the liking glitch! Different parts of the heart are considered
@@ -54,24 +52,24 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 		};
 
 		$scope.main.addClick = function($event, id, index) {
-
-			// Figured out the liking glitch! Different parts of the heart are considered
-			// the event target depending on exactly where you click.
-
-			console.log(index);
-
 			if ($event.target.classList.contains('add')
 			 || $event.target.parentElement.classList.contains('add')
 			 || $event.target.parentElement.parentElement.classList.contains('add')
 			) {
-				// we will 'unlike' it
 				$scope.addSong($scope.main.searchList[index]);
 				$event.target.classList.remove('add')
-			 	$event.target.parentElement.classList.remove('add')
-			 	$event.target.parentElement.parentElement.classList.remove('add')
-			 	$event.target.src = "img/check.png"
+				 $event.target.parentElement.classList.remove('add')
+				 $event.target.parentElement.parentElement.classList.remove('add')
+			 	var x = $event.target.childNodes
+			 	console.log($event.target);
+			 	console.log($event.target.childNodes);
+			 	if ($event.target.childNodes.length > 0) {
+			 		$event.target.childNodes[1].src = "img/check.png"
+			 	} else {
+			 		$event.target.src = "img/check.png"
+			 	}
+			
 			} else {
-				// we will 'like' it
 				console.log("Already added");
 			}
 
@@ -111,19 +109,13 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 			}
 		});
 
-		// $("#search_bar").on('blur', function (e) {
-		//     console.log(e);
-		//     this.value = '';
-		//     $scope.$apply(function() {
-		// 		$scope.main.searchResults = false;
-		// 	})
-		// });
-
 		document.addEventListener('click', function(e) {
 			var el = $(e.target);
+
 			if (el.parents('div#targetArea').length) {
 
 			} else {
+				hideOptions();
 				$("#search_bar").value = '';
 				$scope.$apply(function() {
 					$scope.main.searchResults = false;
@@ -132,7 +124,6 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 		});
 
 		function filterOutSongsAlreadyAdded(results) {
-			console.log(results)
 			var newResults = [];
 			results.forEach(function(result) {
 				if (!songs.contains(result.id)) {
@@ -151,63 +142,85 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 
 		// PLAYBACK SECTION //
 
-		function _playNow(link) {
-			// actually start playing the song
-			var aud = document.getElementById("audioElement");
-			// aud.src =  "music/" + link;
-			aud.src = link;
-			var timestamp = undefined;  // TODO: Get timestamp of now
-			aud.play();
+		// When host starts playing music, send timestamp for playback synchronization
+		var aud = document.getElementById("audioElement");
+		aud.onplay = function() {
+
+			if($scope.main.thisIsHost) {
+				var timeResumed = Date.now() / 1000;  // timestamp
+				var resumedSeekPos = aud.currentTime;  // time offset from beginning of song
+				socket.emit('send:play', {
+					resumedSeekPos: resumedSeekPos,
+					timeResumed: timeResumed
+				});
+				// _logEndTime(resumedSeekPos, timeResumed, aud.duration);
+			} else {
+				if(!$scope.main.nowPlaying.isPlaying) {
+					aud.pause();
+					return;
+					// This can happen if the song is paused when the user loads the page.
+				}
+
+				if($scope.main.nowPlaying.timeResumed) {
+					// if timeResumed is undefined, the event we received was the original one
+					// fired when the host started playing the song, and we should just
+					// start the song at the beginning.
+					_synchronizeSeekPosition();
+				} else {
+					var timeResumed = Date.now() / 1000;  // timestamp
+					var resumedSeekPos = aud.currentTime;  // time offset from beginning of song
+					// _logEndTime(resumedSeekPos, timeResumed, aud.duration);
+				}
+			}
+		};
+
+		function _synchronizeSeekPosition() {
+			console.log("syncing playback with host...");
+			var resumedSeekPos = $scope.main.nowPlaying.resumedSeekPos;  // seconds
+			var timeResumed = $scope.main.nowPlaying.timeResumed;  // seconds
+
+			var timestamp = Date.now() / 1000;
+			var latency = timestamp - timeResumed;
+
+			var seekPos = resumedSeekPos + latency;
+			aud.currentTime = seekPos;
+
+			// console.log("resumedSeekPos: " + resumedSeekPos);
+			// console.log(timestamp + " - " + $scope.main.nowPlaying.timeResumed + " = " + latency);
+			// console.log('being assigned to aud.currentTime: ' + seekPos);
+
+			// _logEndTime(seekPos, timestamp, aud.duration);
 		}
 
-		function _setAsNowPlaying(newNowPlaying, newLastPlayed) {
-			$scope.main.lastPlayed = newLastPlayed;
-			// must set last played before now playing to avoid clobbering
+		function _logEndTime(position, timestamp, duration) {
+			console.log(timestamp + " + " + duration + " - " + position);
+			var sum = timestamp + duration - position;
+			console.log('end time: ' + sum);
+		}
+
+		function _setAsNowPlaying(newNowPlaying) {
 			$scope.main.nowPlaying = newNowPlaying;
 
 			// TODO: seek bar
 		}
 
-		function _createNowPlaying(song) {
-			return {
-				id: song.id,
-				songName: song.songName,
-				artist: song.artist,
-				albumId: song.albumId,
-
-				isPlaying: false,
-				timeResumed: undefined,
-				resumedSeekPos: 0
-			};
-		}
-
 		function beginNextSong() {
-			var song = songs.popNext();
 
-			if (song == null) {
-				console.log("No more songs in queue.");
-				$scope.main.nowPlaying.isPlaying = false;
-				$scope.main.lastPlayed.songName = $scope.main.nowPlaying.songName;
-				$scope.main.lastPlayed.artist = $scope.main.nowPlaying.artist;
-				$scope.main.nowPlaying.songName = "No Current Song";
-				$scope.main.nowPlaying.artist = "";
-				$scope.main.imgURL = "img/noImg.png";
-				// TODO:
-				// socket.emit('send:now-playing', {
-				// 	np: null,
-				// 	lp: $scope.main.nowPlaying
-				// });
-
+			var song = null;
+			if ($scope.main.queuedSong == null) {
+				song = songs.popNext();
 			} else {
-				console.log("requesting to server to play " + song.songName);
-				socket.emit('send:now-playing', {
-					np: _createNowPlaying(song),
-					lp: $scope.main.nowPlaying
-				});
+				song = $scope.main.queuedSong;
+				$scope.main.queuedSong = null;
+				removeShimmers();
+				songs.removeById(song.id);
 			}
+			socket.emit('send:now-playing', song);
 		}
 
 		function beginPlayback() {
+			if(songs.songs.length === 0) return;
+
 			var aud = document.getElementById("audioElement");
 			aud.onended = function() { $scope.$apply(beginNextSong) };
 			beginNextSong();
@@ -215,13 +228,10 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 
 		function play() {
 			var aud = document.getElementById("audioElement");
+
 			aud.play();
-
 			$scope.main.nowPlaying.isPlaying = true;
-			// $scope.main.buttonimg = 'img/pause.png';
-
 			console.log('audio playing');
-			socket.emit('send:play');
 		};
 
 		function pause() {
@@ -229,14 +239,15 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 			aud.pause();
 
 			$scope.main.nowPlaying.isPlaying = false;
-			// $scope.main.buttonimg = 'img/play.png';
 
 			console.log('audio paused');
-			socket.emit('send:pause');
+			if($scope.main.thisIsHost) {
+				socket.emit('send:pause');
+			}
 		};
 
 		$scope.main.togglePlay = function() {
-			if($scope.main.nowPlaying.songName === "") {
+			if($scope.main.nowPlaying.songName === "No Current Song") {
 				beginPlayback();
 			} else {
 				if($scope.main.nowPlaying.isPlaying) {
@@ -253,31 +264,31 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 
 		// Receive playback events from server
 
-		socket.on('push:now-playing', function(data) {
-			_setAsNowPlaying(data.np, data.lp);
-			if(data.np.songName === "") return;
-
-			console.log("Now Playing: " + data.np.songName + " by " + data.np.artist);
-			if(document.getElementById('skipButton')) {  // We are on host
-				// Actually start playing song
-				console.log("now playing from " + data.npUrl);
-				$scope.main.nowPlaying.timeResumed = _playNow(data.npUrl);
-				$scope.main.nowPlaying.isPlaying = true;
-				var aud = document.getElementById("audioElement");
-				aud.play();
-			} else {
-				songs.removeById(data.np.id);
+		socket.on('push:now-playing', function(np) {
+			if(!$scope.main.thisIsHost) {  // not on host
+				songs.removeById(np.id);
 			}
+
+			console.log("Now Playing: " + np.songName + " by " + np.artist);
+			_setAsNowPlaying(np);
 		});
 
-		socket.on('push:play', function() {
+		socket.on('push:play', function(data) {
 			console.log('received push:play');
-			$scope.main.nowPlaying.isPlaying = true;
+			$scope.main.nowPlaying.resumedSeekPos = data.resumedSeekPos;
+			$scope.main.nowPlaying.timeResumed = data.timeResumed;
+
+			if(!$scope.main.nowPlaying.isPlaying) {
+				play();
+			} else {
+				// isPlaying may be true in the case that the host fired a play event
+				// for simply updating for synchronization
+			}
 		});
 
 		socket.on('push:pause', function() {
 			console.log('received push:pause');
-			$scope.main.nowPlaying.isPlaying = false;
+			pause();
 		});
 
 		// Receive Google Music API search results back from server
@@ -292,9 +303,57 @@ angular.module('controller', ['songServices', 'ngResource']).controller('MainCon
 			socket.emit('send:reset');
 		};
 
-		$("#audioElement").bind('ended', function(){
-		    // done playing
-		    beginNextSong();
-		});
+		$scope.main.toggleSound = function () {
+			console.log($scope.main.isStreaming);
+		};
+
+		$scope.main.showOptions = function($event, id) {
+			hideOptions();
+			var x = $event.target.parentElement.childNodes[1];
+			$scope.main.currDropdown = x;
+			console.log(x);
+				if (x.className.indexOf("w3-show") == -1) {
+						x.className += " w3-show";
+				} else {
+						x.className = x.className.replace(" w3-show", "");
+				}
+		}
+
+		function hideOptions() {
+			console.log($scope.main.currDropdown);
+			if ($scope.main.currDropdown) {
+				console.log("HI");
+				$scope.main.currDropdown.className = $scope.main.currDropdown.className.replace(" w3-show", "");
+			} else {
+				console.log("BYE");
+			}
+		}
+
+		function removeShimmers() {
+			var x = document.getElementsByClassName("shimmer");
+			if (x.length == 0) return;
+			console.log(x)
+			for (var i = 0; i < x.length; i++) {
+				x[i].className = x[i].className.replace(" shimmer", "");
+			}
+		}
+
+		$scope.main.queueNext = function($event, id) {
+			var song = songs.getById(id);
+			if(song) {
+				$scope.main.queuedSong = song;
+				console.log($scope.main.queuedSong);
+				removeShimmers();
+				console.log($event.target.parentElement.parentElement.childNodes[5]);
+				$event.target.parentElement.parentElement.childNodes[5].className += " shimmer";
+			}
+			hideOptions();
+		}
+
+		$scope.main.removeSong = function($event, id) {
+			console.log(id);
+			socket.emit('send:remove-song', {id:id});
+			hideOptions();
+		}
 }
 ]);
