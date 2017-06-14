@@ -168,7 +168,9 @@ jamApp.controller('MainController', [
 		};
 		$scope.main.audPlay = function() {
 			var aud = document.getElementById("audioElement");
+			$scope.hasPlayed = !$scope.hasPlayed;
 			aud.play();
+			aud.pause();
 		}
 		// PLAYBACK SECTION //
 
@@ -339,11 +341,11 @@ jamApp.controller('MainController', [
 
 		$scope.main.toggleSound = function () {
 			console.log($scope.main.isStreaming);
-			if (!$scope.hasPlayed) {
-				aud.play();
-				$scope.hasPlayed = true;
-				_synchronizeSeekPosition();
-			}
+			// if (!$scope.hasPlayed) {
+			// 	aud.play();
+			// 	$scope.hasPlayed = true;
+			// 	_synchronizeSeekPosition();
+			// }
 		};
 
 		$scope.main.showOptions = function($event, id) {
