@@ -341,6 +341,7 @@ jamApp.controller('MainController', [
 			console.log($scope.main.isStreaming);
 			if (!$scope.hasPlayed) {
 				aud.play();
+				aud.pause();
 				$scope.hasPlayed = true;
 				$scope.main.isStreaming = !$scope.main.isStreaming;
 				$scope.main.isStreaming = !$scope.main.isStreaming;
