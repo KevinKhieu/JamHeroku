@@ -21,7 +21,7 @@
 					<input id = "playCheck" type="checkbox" ng-click = "main.toggleSound()" ng-model="main.isStreaming">
 					<div class="slider round"></div>
 				</label>
-				<p class="playCaption">Play Music On This Device</p>
+				<p class="playCaption" ng-if="main.hasPlayed">Play Music On This Device</p>
 			</div>
 
 			<div class="right w3-col w3-container l3">
