@@ -662,7 +662,7 @@ input:checked + .slider:before {
 	.songImg {
 		display: inline;
 		margin: 0 auto;
-		height: 650px;
+		height: 600px;
 		width: auto;
 		z-index: 1;
 		position: absolute;
