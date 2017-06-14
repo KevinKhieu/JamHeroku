@@ -29,6 +29,7 @@ jamApp.controller('MainController', [
 		$scope.main.searchResults = false;
 		$scope.main.searchList = [];
 		$scope.main.imgURL = "img/noImg.png";
+		$scope.hasPlayed = false;
 
 		$scope.main.queuedSong = null;		// STORES QUEUED SONG ID
 		$scope.main.currDropdown = null;
@@ -338,21 +339,11 @@ jamApp.controller('MainController', [
 
 		$scope.main.toggleSound = function () {
 			console.log($scope.main.isStreaming);
-			if(!$scope.main.nowPlaying.isPlaying) {
-				aud.pause();
-				return;
-				// This can happen if the song is paused when the user loads the page.
-			}
-			aud.play();
-			if($scope.main.nowPlaying.timeResumed) {
-				// if timeResumed is undefined, the event we received was the original one
-				// fired when the host started playing the song, and we should just
-				// start the song at the beginning.
-				_synchronizeSeekPosition();
-			} else {
-				var timeResumed = Date.now() / 1000;  // timestamp
-				var resumedSeekPos = aud.currentTime;  // time offset from beginning of song
-				// _logEndTime(resumedSeekPos, timeResumed, aud.duration);
+			if (!$scope.hasPlayed) {
+				aud.play();
+				$scope.hasPlayed = true;
+				$scope.main.isStreaming = !$scope.main.isStreaming;
+				$scope.main.isStreaming = !$scope.main.isStreaming;
 			}
 		};
 
