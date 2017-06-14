@@ -257,13 +257,29 @@ io.sockets.on('connection', function(socket) {
 		console.log("received get:room-exists");
 		Room.findOne(data, function(err, room) {
 			if(err) {
-				handleError(socket, err.message, "Error searching for room with name " + data.name);
+				handleError(socket, err.message, "Error searching for room with name " + data.roomName);
 			} else {
 				// console.log("found room: " + room);
 				// console.dir(data);
 				socket.emit('respond:room-exists', {
 					exists: room != null,
 					roomName: data.roomName
+				});
+			}
+		});
+	});
+
+	socket.on('get:host-exists', function(data) {
+		console.log("received get:host-exists");
+		Room.findOne(data, function(err, room) {
+			if(err) {
+				handleError(socket, err.message, "Error searching for room with name " + data.roomName);
+			} else {
+				// console.log("found room: " + room);
+				// console.dir(data);
+				socket.emit('respond:host-exists', {
+					roomName: data.roomName,
+					isCorrectKey: room != null && room.hostKey === data.hostKey
 				});
 			}
 		});

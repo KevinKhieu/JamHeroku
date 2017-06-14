@@ -23,6 +23,8 @@ jamApp.controller('LandingController', [
 		$scope.main.searchResults = false;
 		$scope.main.searchList = [];
 		$scope.main.imgURL = "img/noImg.png";
+		$scope.main.invalidRoom = false;
+		$scope.main.invalidHost = false;
 
 		$scope.main.queuedSong = null;		// STORES QUEUED SONG ID
 		$scope.main.currDropdown = null;
@@ -71,7 +73,8 @@ jamApp.controller('LandingController', [
 				console.log("room exists and has name " + data.roomName);
 				$location.path(str);
 			} else {
-				alert("That name does not match any existing room. Please use the section below to create it.");
+				$scope.main.invalidRoom = true;
+				//alert("That name does not match any existing room. Please use the section below to create it.");
 			}
 		});
 
@@ -80,7 +83,8 @@ jamApp.controller('LandingController', [
 				var str = '/host/' + data.roomName + '/' + data.hostKey;
 				$location.path(str);
 			} else {
-				alert("That room name is already taken. Please try again.");
+				$scope.main.invalidHost = true;
+				//alert("That room name is already taken. Please try again.");
 			}
 		});
 

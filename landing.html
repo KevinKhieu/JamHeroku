@@ -8,7 +8,7 @@
 		<div class = "textArea1">
 			<input type="text" name="search" placeholder="Enter Room ID"
 							ng-model="searchString" class="style-4 textArea1" id="search_bar">
-
+			<p class="helper" ng-if="main.invalidRoom">Invalid Room Id</p>
 		</div>
 		<div class="textArea3">
 			<span class="button2" ng-click="main.enterExistingRoom()">Enter</span>
@@ -22,10 +22,11 @@
 			<div class = "space20"></div>
 			<input type="text" name="search" placeholder="Enter Host Key"
 							ng-model="hostKey" class="style-4 textArea4" id="host_key">
-			<div class = "space"></div>
+			<div class = "space" ng-if="!main.invalidHost"></div>
+			<p class="helper2" ng-if="main.invalidHost">Invalid Room Id</p>
 			<span class="button2" ng-click="main.createRoom()">Create</span>
 			<!-- </a> -->
 		</div>
 	</div>
 </div>
-<button ng-click="main.reset()">Reset DB</button>
+<!-- <button ng-click="main.reset()">Reset DB</button> -->

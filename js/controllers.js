@@ -44,14 +44,40 @@ jamApp.controller('MainController', [
 
 		if ($scope.main.thisIsHost) {
 			console.log("here")
-			if (!hostId || !roomId || invalidHostId(hostId) || invalidRoomId(roomId)) {
+			if (!hostId || !roomId) {
 				$location.path("/landing");
+			} else {
+				socket.emit('get:host-exists', {
+					roomName: roomId,
+					hostKey: hostId
+				});
 			}
 		} else {
-			if (!roomId || invalidRoomId(roomId)) {
+			if (!roomId) {
 				$location.path("/landing");
+			} else {
+				socket.emit('get:room-exists', {
+					roomName: roomId
+				});
 			}
 		}
+
+		socket.on('respond:host-exists', function(data) {
+			if (data.isCorrectKey) {
+				console.log("Valid Host");
+			} else {
+				$location.path("/landing");
+			}
+		});
+
+		socket.on('respond:room-exists', function(data) {
+			if (data.exists) {
+				console.log("Valid Room");
+			} else {
+				$location.path("/landing");
+			}
+		});
+
 		function invalidHostId(id) {
 			return false;
 		}

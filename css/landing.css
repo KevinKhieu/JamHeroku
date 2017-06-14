@@ -325,6 +325,27 @@ html {
   cursor: pointer;
 }
 
+.helper {
+	font-family: Eurostile;
+	font-size: 22px;
+	text-align: center;
+	color: #ff0000;
+	margin: auto;
+	margin-top:8px;
+	padding-top: 2px;
+}
+
+.helper2 {
+	font-family: Eurostile;
+	font-size: 22px;
+	text-align: center;
+	color: #ff0000;
+	margin: auto;
+	margin-top:8px;
+	padding-top: 2px;
+	margin-bottom: 10px;
+}
+
 .button3
 {
   text-transform: uppercase;
@@ -711,6 +732,27 @@ html {
 	  border-color: #000;
 	  background: #FFF;
 	  cursor: pointer;
+	}
+
+	.helper {
+		font-family: Eurostile;
+		font-size: 30px;
+		text-align: center;
+		color: #ff0000;
+		margin: auto;
+		margin-top:8px;
+		padding-top: 2px;
+	}
+
+	.helper2 {
+		font-family: Eurostile;
+		font-size: 30px;
+		text-align: center;
+		color: #ff0000;
+		margin: auto;
+		margin-top:8px;
+		padding-top: 2px;
+		margin-bottom: 10px;
 	}
 	
 }
