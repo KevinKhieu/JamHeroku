@@ -18,7 +18,6 @@ a {
 
 .add-wrapper {
 	width: 50%;
-	height: 100%;
 	margin:auto;
 	display: -webkit-box;
 	display: -ms-flexbox;
@@ -30,8 +29,7 @@ a {
 }
 
 .add-icon {
-	height: 100%;
-	width: 100%;
+	height: 40%;
 	display: block;
     margin: auto;
 }
@@ -41,8 +39,8 @@ a {
 	border-radius: 40px;
 	color: #d3d3d3;
 	font-weight: bold;
-  	width: 65px;
-	height: 65px;
+/*  width: 30px;
+	height: 30px;*/
 	display: flex;
 }
 
@@ -173,6 +171,40 @@ a {
 					animation: heartFloatSub-4 1s 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
 	opacity: .4;
 }
+
+@media only screen and (max-device-width: 800px) {
+	.add-wrapper {
+		width: 50%;
+		height: 100%;
+		margin:auto;
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-ms-flex-pack: distribute;
+				justify-content: space-around;
+		-ms-flex-flow: row wrap;
+				flex-flow: row wrap;
+	}
+
+	.add-icon {
+		height: 100%;
+		width: 100%;
+		display: block;
+	    margin: auto;
+	}
+
+	.add-button {
+		border: 0px solid #c7c7c7;
+		border-radius: 40px;
+		color: #d3d3d3;
+		font-weight: bold;
+	  	width: 65px;
+		height: 65px;
+		display: flex;
+		margin-top: 35px;
+	}
+}
+
 /*
 @-webkit-keyframes heartPulse {
 	0% {
