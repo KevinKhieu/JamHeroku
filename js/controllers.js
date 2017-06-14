@@ -29,7 +29,7 @@ jamApp.controller('MainController', [
 		$scope.main.searchResults = false;
 		$scope.main.searchList = [];
 		$scope.main.imgURL = "img/noImg.png";
-		$scope.hasPlayed = false;
+		$scope.main.hasPlayed = false;
 
 		$scope.main.queuedSong = null;		// STORES QUEUED SONG ID
 		$scope.main.currDropdown = null;
@@ -168,7 +168,7 @@ jamApp.controller('MainController', [
 		};
 		$scope.main.audPlay = function() {
 			var aud = document.getElementById("audioElement");
-			$scope.hasPlayed = !$scope.hasPlayed;
+			$scope.main.hasPlayed = !$scope.main.hasPlayed;
 			aud.play();
 			aud.pause();
 		}
