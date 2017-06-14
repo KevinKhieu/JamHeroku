@@ -22,21 +22,6 @@ body {
 	height: 10px;
 }
 
-.playlistSongLikeArea {
-	float: left;
-	width: 9%;
-	height: auto;
-	-webkit-transform: translateY(10%);
-	-ms-transform: translateY(10%);
-	transform: translateY(10%);
-	position: relative;
-	margin: auto;
-	display: inline-block;
-	vertical-align: middle;
-	text-align: center;
-	z-index: 1000;
-}
-
 .hi {
 	padding-top:0px;
 	margin-top:1px;
@@ -49,32 +34,6 @@ body {
 	color: #5d5d5d;
 	margin: auto;
 	padding-top: 40px;
-}
-
-
-
-.lastPlayed {
-	font-family: Eurostile;
-	font-size: 23px;
-	width: 100%;
-	text-align: center;
-	font-weight: bold;
-	text-align: right;
-	color: #777777;
-	padding-top: 10px;
-	margin-bottom: 1px;
-	padding-right: 35px;
-	float: right;
-}
-
-.lastPlayedSection {
-	display: table;
-	float:right;
-	height: 70px;
-	width: 100%;
-	word-wrap: break-word;
-	border: 1px;
-	padding-top: 1px;
 }
 
 input[type=text].textArea4 {
@@ -403,28 +362,8 @@ html {
 		width:100%;
 	}
 
-	.playlistSongInfoArea {
-		float: right;
-		width: 90%;
-	}
-
 	.spacer {
 		height: 10px;
-	}
-
-	.playlistSongLikeArea {
-		float: left;
-		width: 9%;
-		height: auto;
-		-webkit-transform: translateY(10%);
-		-ms-transform: translateY(10%);
-		transform: translateY(10%);
-		position: relative;
-		margin: auto;
-		display: inline-block;
-		vertical-align: middle;
-		text-align: center;
-		z-index: 1000;
 	}
 
 	.hi {
@@ -745,20 +684,6 @@ html {
 	  overflow: hidden;
 	  
 	  transition: all 0.5s;
-	}
-
-	.lastPlayed {
-		font-family: Eurostile;
-		font-size: 38px;
-		width: 100%;
-		text-align: center;
-		font-weight: bold;
-		text-align: right;
-		color: #777777;
-		padding-top: 10px;
-		margin-bottom: 1px;
-		padding-right: 35px;
-		float: right;
 	}
 
 	.button2:hover, .button2:active 
