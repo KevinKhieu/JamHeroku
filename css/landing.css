@@ -747,6 +747,20 @@ html {
 	  transition: all 0.5s;
 	}
 
+	.lastPlayed {
+		font-family: Eurostile;
+		font-size: 38px;
+		width: 100%;
+		text-align: center;
+		font-weight: bold;
+		text-align: right;
+		color: #777777;
+		padding-top: 10px;
+		margin-bottom: 1px;
+		padding-right: 35px;
+		float: right;
+	}
+
 	.button2:hover, .button2:active 
 	{
 	  text-decoration: none;
