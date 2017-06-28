@@ -60,7 +60,7 @@ jamApp.controller('LandingController', [
 
 		$scope.main.enterExistingRoom = function() {
 			console.log("Entering Existing Room");
-			Cocoa.log("foo");
+			window.external.log("foo");
 			// SOCKET - valid room?
 			socket.emit('get:room-exists', {
 				roomName: currRoomName
