@@ -4,9 +4,10 @@ jamApp.controller('LandingController', [
 	'$scope',
 	'songs',
 	'socket',
+	'socket-controller',
 	'$location',
 	'$resource',
-	function($scope, songs, socket, $location, $resource) {
+	function($scope, songs, socket, socket_controller, $location, $resource) {
 
 		$scope.main = {};
 
@@ -23,8 +24,6 @@ jamApp.controller('LandingController', [
 		$scope.main.searchResults = false;
 		$scope.main.searchList = [];
 		$scope.main.imgURL = "img/noImg.png";
-		$scope.main.invalidRoom = false;
-		$scope.main.invalidHost = false;
 
 		$scope.main.queuedSong = null;		// STORES QUEUED SONG ID
 		$scope.main.currDropdown = null;
@@ -56,25 +55,22 @@ jamApp.controller('LandingController', [
 			} else {
 				console.log("Something is empty");
 			}
-
+				
 		}
 
 		$scope.main.enterExistingRoom = function() {
+			console.log("Entering Existing Room");
+			Cocoa.log("foo");
 			// SOCKET - valid room?
 			socket.emit('get:room-exists', {
-				roomName: $scope.searchString
+				roomName: currRoomName
 			});
 		}
 
 		socket.on('respond:room-exists', function(data) {
 			if (data.exists) {
-				console.log("Entering Existing Room");
 				var str = '/app/' + data.roomName;
-				console.log("room exists and has name " + data.roomName);
 				$location.path(str);
-			} else {
-				$scope.main.invalidRoom = true;
-				//alert("That name does not match any existing room. Please use the section below to create it.");
 			}
 		});
 
@@ -83,14 +79,9 @@ jamApp.controller('LandingController', [
 				var str = '/host/' + data.roomName + '/' + data.hostKey;
 				$location.path(str);
 			} else {
-				$scope.main.invalidHost = true;
-				//alert("That room name is already taken. Please try again.");
+				alert("Invalid Room Name");
 			}
 		});
-
-		$scope.main.reset = function() {
-			socket.emit('send:reset');
-		};
 
 	}
 ]);
